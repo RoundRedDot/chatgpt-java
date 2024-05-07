@@ -18,7 +18,7 @@ import java.util.Map;
 public class Assistant implements Serializable {
 
     /**
-     * 	All models except gpt-3.5-turbo-0301 supported. retrieval tool requires gpt-4-1106-preview or gpt-3.5-turbo-1106.
+     * All models except gpt-3.5-turbo-0301 supported. retrieval tool requires gpt-4-1106-preview or gpt-3.5-turbo-1106.
      *
      * @see com.unfbx.chatgpt.entity.chat.ChatCompletion.Model
      */
@@ -39,6 +39,11 @@ public class Assistant implements Serializable {
      * 助手上启用的工具列表。每个助手最多可以有 128 个工具。工具可以是 code_interpreter、file_search、retrieval或function。
      */
     private List<Tool> tools;
+    /**
+     *
+     */
+    @JsonProperty("tool_resources")
+    private ToolResources toolResources;
     /**
      * 附加到该助手的文件 ID 列表。助手最多可以附加 20 个文件。文件按其创建日期升序排列。
      */
