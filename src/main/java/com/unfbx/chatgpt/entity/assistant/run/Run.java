@@ -48,4 +48,6 @@ public class Run implements Serializable {
      * Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
      */
     private Map metadata;
+
+    private boolean stream;
 }

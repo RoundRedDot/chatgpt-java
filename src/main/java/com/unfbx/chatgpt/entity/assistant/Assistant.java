@@ -36,7 +36,7 @@ public class Assistant implements Serializable {
      */
     private String instructions;
     /**
-     * 助手上启用的工具列表。每个助手最多可以有 128 个工具。工具可以是 code_interpreter、retrieval或function。
+     * 助手上启用的工具列表。每个助手最多可以有 128 个工具。工具可以是 code_interpreter、file_search、retrieval或function。
      */
     private List<Tool> tools;
     /**

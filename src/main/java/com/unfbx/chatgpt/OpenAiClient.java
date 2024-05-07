@@ -57,10 +57,12 @@ import com.unfbx.chatgpt.interceptor.OpenAiAuthInterceptor;
 import com.unfbx.chatgpt.interceptor.DefaultOpenAiAuthInterceptor;
 import com.unfbx.chatgpt.plugin.PluginAbstract;
 import com.unfbx.chatgpt.plugin.PluginParam;
+import com.unfbx.chatgpt.utils.SSEUtil;
 import io.reactivex.Single;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
+import okhttp3.sse.EventSourceListener;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -124,6 +126,9 @@ public class OpenAiClient {
      */
     @Getter
     private PageRequest pageRequest = PageRequest.builder().build();
+
+    @Getter
+    private static final Headers assistantsHeader = Headers.of("OpenAI-Beta", "assistants=v1");
 
     /**
      * 构造器
@@ -1281,6 +1286,27 @@ public class OpenAiClient {
      */
     public RunResponse run(String threadId, Run run) {
         return this.openAiApi.run(threadId, run).blockingGet();
+    }
+
+    /**
+     * SSE创建Run
+     *
+     * @param threadId            线程id
+     * @param run                 run
+     * @param eventSourceListener eventSourceListener
+     * @return
+     * @since 1.1.6
+     */
+    public void runWithStream(String threadId, Run run, EventSourceListener eventSourceListener) {
+        if (!run.isStream()) {
+            run.setStream(true);
+        }
+        SSEUtil.post(this.okHttpClient,
+                this.apiHost + "v1/threads/" + threadId + "/runs",
+                assistantsHeader,
+                run,
+                eventSourceListener
+        );
     }
 
 

@@ -26,14 +26,16 @@ public class Tool implements Serializable {
 
 
     /**
-     * 支持的三种类型
+     * 支持的种类型
      */
     @Getter
     @AllArgsConstructor
     public enum Type {
         CODE_INTERPRETER("code_interpreter"),
+        @Deprecated
         RETRIEVAL("retrieval"),
         FUNCTION("function"),
+        FILE_SEARCH("file_search"),
         ;
         private final String name;
     }
