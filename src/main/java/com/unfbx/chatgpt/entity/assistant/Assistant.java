@@ -45,14 +45,23 @@ public class Assistant implements Serializable {
     @JsonProperty("tool_resources")
     private ToolResources toolResources;
     /**
-     * 附加到该助手的文件 ID 列表。助手最多可以附加 20 个文件。文件按其创建日期升序排列。
-     */
-    @JsonProperty("file_ids")
-    private List<String> fileIds;
-    /**
      * Set of 16 key-value pairs that can be attached to an object.
      * This can be useful for storing additional information about the object in a structured format.
      * Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
      */
     private Map metadata;
+
+    private Double temperature;
+
+    @JsonProperty("top_p")
+    private Double topP;
+
+    /**
+     * `auto` is the default value
+     */
+    @JsonProperty("response_format")
+    private Object responseFormat;
+
+
+
 }

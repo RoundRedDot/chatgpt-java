@@ -43,11 +43,14 @@ public class AssistantResponse implements Serializable {
      * 助手上启用的工具列表。每个助手最多可以有 128 个工具。工具可以是 code_interpreter、retrieval或function。
      */
     private List<Tool> tools;
-    /**
-     * 附加到该助手的文件 ID 列表。助手最多可以附加 20 个文件。文件按其创建日期升序排列。
-     */
-    @JsonProperty("file_ids")
-    private List<String> fileIds;
+
+    @JsonProperty("tool_resources")
+    private ToolResources toolResources;
+
+    @JsonProperty("top_p")
+    private Double topP;
+
+    private Double temperature;
     /**
      * Set of 16 key-value pairs that can be attached to an object.
      * This can be useful for storing additional information about the object in a structured format.
@@ -59,6 +62,9 @@ public class AssistantResponse implements Serializable {
      */
     @JsonProperty("created_at")
     private Long createdAt;
+
+    @JsonProperty("response_format")
+    private Object responseFormat;
 
 
 }
