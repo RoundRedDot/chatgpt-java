@@ -40,7 +40,7 @@ public class Assistant implements Serializable {
      */
     private List<Tool> tools;
     /**
-     *
+     * tool_resources
      */
     @JsonProperty("tool_resources")
     private ToolResources toolResources;
