@@ -815,19 +815,23 @@ public class OpenAiClient {
         //自定义参数
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
         if (StrUtil.isNotBlank(transcriptions.getLanguage())) {
-            requestBodyMap.put(Transcriptions.Fields.language, RequestBody.create(MediaType.parse("multipart/form-data"), transcriptions.getLanguage()));
+            requestBodyMap.put(StrUtil.toUnderlineCase(Transcriptions.Fields.language), RequestBody.create(MediaType.parse("multipart/form-data"), transcriptions.getLanguage()));
         }
         if (StrUtil.isNotBlank(transcriptions.getModel())) {
-            requestBodyMap.put(Transcriptions.Fields.model, RequestBody.create(MediaType.parse("multipart/form-data"), transcriptions.getModel()));
+            requestBodyMap.put(StrUtil.toUnderlineCase(Transcriptions.Fields.model), RequestBody.create(MediaType.parse("multipart/form-data"), transcriptions.getModel()));
         }
         if (StrUtil.isNotBlank(transcriptions.getPrompt())) {
-            requestBodyMap.put(Transcriptions.Fields.prompt, RequestBody.create(MediaType.parse("multipart/form-data"), transcriptions.getPrompt()));
+            requestBodyMap.put(StrUtil.toUnderlineCase(Transcriptions.Fields.prompt), RequestBody.create(MediaType.parse("multipart/form-data"), transcriptions.getPrompt()));
         }
         if (StrUtil.isNotBlank(transcriptions.getResponseFormat())) {
-            requestBodyMap.put(Transcriptions.Fields.responseFormat, RequestBody.create(MediaType.parse("multipart/form-data"), transcriptions.getResponseFormat()));
+            requestBodyMap.put(StrUtil.toUnderlineCase(Transcriptions.Fields.responseFormat), RequestBody.create(MediaType.parse("multipart/form-data"), transcriptions.getResponseFormat()));
+        }
+        if (transcriptions.getTimestampGranularities() != null && !transcriptions.getTimestampGranularities().isEmpty()) {
+            requestBodyMap.put(StrUtil.toUnderlineCase(Transcriptions.Fields.timestampGranularities), RequestBody.create(MediaType.parse("multipart/form-data"),
+                    JSONUtil.toJsonStr(transcriptions.getTimestampGranularities())));
         }
         if (Objects.nonNull(transcriptions.getTemperature())) {
-            requestBodyMap.put(Transcriptions.Fields.temperature, RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(transcriptions.getTemperature())));
+            requestBodyMap.put(StrUtil.toUnderlineCase(Transcriptions.Fields.temperature), RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(transcriptions.getTemperature())));
         }
         Single<WhisperResponse> whisperResponse = this.openAiApi.speechToTextTranscriptions(multipartBody, requestBodyMap);
         return whisperResponse.blockingGet();

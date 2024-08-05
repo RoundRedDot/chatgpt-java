@@ -42,7 +42,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <retrofit2.version>2.9.0</retrofit2.version>
+        <retrofit2.version>2.11.0</retrofit2.version>
         <slf4j.version>2.0.6</slf4j.version>
     </properties>
 
@@ -62,13 +62,13 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.3</version>
+            <version>2.17.2</version>
         </dependency>
 
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.12</version>
+            <version>5.8.29</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
@@ -121,17 +121,20 @@
     </dependencies>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>unfbx</id> <!-- 此处id与setting.xml中的服务id保持一致 -->
-            <name>oss Snapshots Repository</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
         <repository>
-            <id>unfbx</id> <!-- 此处id与setting.xml中的服务id保持一致 -->
-            <name>oss Staging Repository</name>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>https://nexus.rrdtech.cn/repository/maven-releases/</url>
+            <uniqueVersion>false</uniqueVersion>
         </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>https://nexus.rrdtech.cn/repository/maven-snapshots/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
     </distributionManagement>
+
     <profiles>
         <profile>
             <id>gen-src</id>
