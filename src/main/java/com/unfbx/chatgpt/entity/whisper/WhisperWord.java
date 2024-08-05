@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * 描述：
@@ -15,17 +14,11 @@ import java.util.List;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WhisperResponse implements Serializable {
+public class WhisperWord implements Serializable {
 
-    private String text;
+    private String word;
 
-    private BigDecimal duration;
+    private BigDecimal start;
 
-    private String language;
-
-    private List<WhisperWord> words;
-
-    private List<WhisperSegment> segments;
-
-
+    private BigDecimal end;
 }
