@@ -62,7 +62,7 @@ public class TikTokensTest {
     public void byModelNameTest() {
         String modelName = ChatCompletion.Model.GPT_4.getName();
 //        String modelName = ChatCompletion.Model.GPT_3_5_TURBO.getName();
-        IntArrayList encode = TikTokensUtil.encode(modelName, text);
+        List<Integer> encode = TikTokensUtil.encode(modelName, text);
         log.info(encode.toString());
         long tokens = TikTokensUtil.tokens(modelName, text);
         log.info("单句文本：【{}】", text);
@@ -81,7 +81,7 @@ public class TikTokensTest {
     public void byEncodingTest() {
         EncodingRegistry registry = Encodings.newDefaultEncodingRegistry();
         Encoding enc = registry.getEncoding(EncodingType.P50K_BASE);
-        IntArrayList encode = TikTokensUtil.encode(enc, text);
+        List<Integer> encode = TikTokensUtil.encode(enc, text);
         log.info(encode.toString());
         long tokens = TikTokensUtil.tokens(enc, text);
         log.info("单句文本：【{}】", text);
@@ -93,7 +93,7 @@ public class TikTokensTest {
      */
     @Test
     public void byEncodingTypeTest() {
-        IntArrayList encode = TikTokensUtil.encode(EncodingType.CL100K_BASE, text);
+        List<Integer> encode = TikTokensUtil.encode(EncodingType.CL100K_BASE, text);
         log.info(encode.toString());
         long tokens = TikTokensUtil.tokens(EncodingType.CL100K_BASE, text);
         log.info("单句文本：【{}】", text);
