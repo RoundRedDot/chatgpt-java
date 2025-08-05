@@ -37,7 +37,7 @@ public class ChatCompletion extends BaseChatCompletion implements Serializable {
      */
     public long tokens() {
         if (CollectionUtil.isEmpty(this.messages) || StrUtil.isBlank(this.getModel())) {
-            log.warn("参数异常model：{}，prompt：{}", this.getModel(), this.messages);
+            // log.warn("参数异常model：{}，prompt：{}", this.getModel(), this.messages);
             return 0;
         }
         return TikTokensUtil.tokens(this.getModel(), this.messages);

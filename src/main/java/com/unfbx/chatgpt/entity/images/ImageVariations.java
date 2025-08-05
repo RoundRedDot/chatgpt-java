@@ -46,12 +46,12 @@ public class ImageVariations implements Serializable {
 
     public void setN(Integer n) {
         if (n < 1) {
-            log.warn("n最小值1");
+            // log.warn("n最小值1");
             this.n = 1;
             return;
         }
         if (n > 10) {
-            log.warn("n最大值10");
+            // log.warn("n最大值10");
             this.n = 10;
             return;
         }

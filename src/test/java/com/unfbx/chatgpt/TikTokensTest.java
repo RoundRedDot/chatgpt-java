@@ -4,6 +4,7 @@ import com.knuddels.jtokkit.Encodings;
 import com.knuddels.jtokkit.api.Encoding;
 import com.knuddels.jtokkit.api.EncodingRegistry;
 import com.knuddels.jtokkit.api.EncodingType;
+import com.knuddels.jtokkit.api.IntArrayList;
 import com.unfbx.chatgpt.entity.chat.ChatCompletion;
 import com.unfbx.chatgpt.entity.chat.Message;
 import com.unfbx.chatgpt.entity.completions.Completion;
@@ -61,7 +62,7 @@ public class TikTokensTest {
     public void byModelNameTest() {
         String modelName = ChatCompletion.Model.GPT_4.getName();
 //        String modelName = ChatCompletion.Model.GPT_3_5_TURBO.getName();
-        List<Integer> encode = TikTokensUtil.encode(modelName, text);
+        IntArrayList encode = TikTokensUtil.encode(modelName, text);
         log.info(encode.toString());
         long tokens = TikTokensUtil.tokens(modelName, text);
         log.info("单句文本：【{}】", text);
@@ -80,7 +81,7 @@ public class TikTokensTest {
     public void byEncodingTest() {
         EncodingRegistry registry = Encodings.newDefaultEncodingRegistry();
         Encoding enc = registry.getEncoding(EncodingType.P50K_BASE);
-        List<Integer> encode = TikTokensUtil.encode(enc, text);
+        IntArrayList encode = TikTokensUtil.encode(enc, text);
         log.info(encode.toString());
         long tokens = TikTokensUtil.tokens(enc, text);
         log.info("单句文本：【{}】", text);
@@ -92,7 +93,7 @@ public class TikTokensTest {
      */
     @Test
     public void byEncodingTypeTest() {
-        List<Integer> encode = TikTokensUtil.encode(EncodingType.CL100K_BASE, text);
+        IntArrayList encode = TikTokensUtil.encode(EncodingType.CL100K_BASE, text);
         log.info(encode.toString());
         long tokens = TikTokensUtil.tokens(EncodingType.CL100K_BASE, text);
         log.info("单句文本：【{}】", text);

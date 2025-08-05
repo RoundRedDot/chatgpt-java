@@ -2,10 +2,7 @@ package com.unfbx.chatgpt.utils;
 
 import cn.hutool.core.util.StrUtil;
 import com.knuddels.jtokkit.Encodings;
-import com.knuddels.jtokkit.api.Encoding;
-import com.knuddels.jtokkit.api.EncodingRegistry;
-import com.knuddels.jtokkit.api.EncodingType;
-import com.knuddels.jtokkit.api.ModelType;
+import com.knuddels.jtokkit.api.*;
 import com.unfbx.chatgpt.entity.chat.ChatCompletion;
 import com.unfbx.chatgpt.entity.chat.FunctionCall;
 import com.unfbx.chatgpt.entity.chat.Message;
@@ -56,8 +53,8 @@ public class TikTokensUtil {
      * @param text 文本信息
      * @return 编码数组
      */
-    public static List<Integer> encode(@NotNull Encoding enc, String text) {
-        return StrUtil.isBlank(text) ? new ArrayList<>() : enc.encode(text);
+    public static IntArrayList encode(@NotNull Encoding enc, String text) {
+        return StrUtil.isBlank(text) ? new IntArrayList() : enc.encode(text);
     }
 
     /**
@@ -79,7 +76,7 @@ public class TikTokensUtil {
      * @param encoded 编码数组
      * @return 编码数组对应的文本信息
      */
-    public static String decode(@NotNull Encoding enc, @NotNull List<Integer> encoded) {
+    public static String decode(@NotNull Encoding enc, @NotNull IntArrayList encoded) {
         return enc.decode(encoded);
     }
 
@@ -99,9 +96,9 @@ public class TikTokensUtil {
      * @param text 文本信息
      * @return 编码数组
      */
-    public static List<Integer> encode(@NotNull EncodingType encodingType, String text) {
+    public static IntArrayList encode(@NotNull EncodingType encodingType, String text) {
         if (StrUtil.isBlank(text)) {
-            return new ArrayList<>();
+            return new IntArrayList();
         }
         Encoding enc = getEncoding(encodingType);
         return enc.encode(text);
@@ -126,7 +123,7 @@ public class TikTokensUtil {
      * @param encoded      编码数组
      * @return 编码数组对应的字符串
      */
-    public static String decode(@NotNull EncodingType encodingType, @NotNull List<Integer> encoded) {
+    public static String decode(@NotNull EncodingType encodingType, @NotNull IntArrayList encoded) {
         Encoding enc = getEncoding(encodingType);
         return enc.decode(encoded);
     }
@@ -148,14 +145,14 @@ public class TikTokensUtil {
      * @param text 文本信息
      * @return 编码数组
      */
-    public static List<Integer> encode(@NotNull String modelName, String text) {
+    public static IntArrayList encode(@NotNull String modelName, String text) {
         if (StrUtil.isBlank(text)) {
-            return new ArrayList<>();
+            return new IntArrayList();
         }
         Encoding enc = getEncoding(modelName);
         if (Objects.isNull(enc)) {
-            log.warn("[{}]模型不存在或者暂不支持计算tokens，直接返回tokens==0");
-            return new ArrayList<>();
+            // log.warn("[{}]模型不存在或者暂不支持计算tokens，直接返回tokens==0");
+            return new IntArrayList();
         }
         return enc.encode(text);
     }
@@ -194,20 +191,20 @@ public class TikTokensUtil {
         ) {
             tokensPerMessage = 3;
             tokensPerName = 1;
-        }else if(modelName.equals(ChatCompletion.Model.GPT_3_5_TURBO_0301.getName())){
+        } else if (modelName.equals(ChatCompletion.Model.GPT_3_5_TURBO_0301.getName())) {
             tokensPerMessage = 4;
             tokensPerName = -1;
-        }else if(modelName.contains(ChatCompletion.Model.GPT_3_5_TURBO.getName())){
+        } else if (modelName.contains(ChatCompletion.Model.GPT_3_5_TURBO.getName())) {
             //"gpt-3.5-turbo" in model:
             log.warn("Warning: gpt-3.5-turbo may update over time. Returning num tokens assuming gpt-3.5-turbo-0613.");
             tokensPerMessage = 3;
             tokensPerName = 1;
-        }else if(modelName.contains(ChatCompletion.Model.GPT_4.getName())){
+        } else if (modelName.contains(ChatCompletion.Model.GPT_4.getName())) {
             log.warn("Warning: gpt-4 may update over time. Returning num tokens assuming gpt-4-0613.");
             tokensPerMessage = 3;
             tokensPerName = 1;
-        }else {
-            log.warn("不支持的model {}. See https://github.com/openai/openai-python/blob/main/chatml.md 更多信息.",modelName);
+        } else {
+            log.warn("不支持的model {}. See https://github.com/openai/openai-python/blob/main/chatml.md 更多信息.", modelName);
         }
         int sum = 0;
         for (Message msg : messages) {
@@ -232,7 +229,7 @@ public class TikTokensUtil {
      * @param encoded   编码数组
      * @return 返回源文本
      */
-    public static String decode(@NotNull String modelName, @NotNull List<Integer> encoded) {
+    public static String decode(@NotNull String modelName, @NotNull IntArrayList encoded) {
         Encoding enc = getEncoding(modelName);
         return enc.decode(encoded);
     }

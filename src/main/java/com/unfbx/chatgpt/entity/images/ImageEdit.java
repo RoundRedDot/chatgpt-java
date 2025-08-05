@@ -50,11 +50,11 @@ public class ImageEdit implements Serializable {
 
     public ImageEdit setN(Integer n) {
         if(n < 1){
-            log.warn("n最小值1");
+            // log.warn("n最小值1");
             n = 1;
         }
         if(n > 10){
-            log.warn("n最大值10");
+            // log.warn("n最大值10");
             n = 10;
         }
         this.n = n;

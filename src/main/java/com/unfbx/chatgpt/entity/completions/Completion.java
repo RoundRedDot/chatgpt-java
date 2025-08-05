@@ -112,7 +112,7 @@ public class Completion implements Serializable {
      */
     public long tokens() {
         if (StrUtil.isBlank(this.prompt) || StrUtil.isBlank(this.model)) {
-            log.warn("参数异常model：{}，prompt：{}", this.model, this.prompt);
+            // log.warn("参数异常model：{}，prompt：{}", this.model, this.prompt);
             return 0;
         }
         return TikTokensUtil.tokens(this.model, this.prompt);
