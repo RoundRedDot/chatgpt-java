@@ -71,7 +71,6 @@ public class BaseChatCompletion implements Serializable {
      * 取值：String或者ToolChoiceObj
      *
      * @see ToolChoice.Choice 当取值为String时：ToolChoice.Choice
-     *
      * @see ToolChoiceObj 当取值为ToolChoiceObj时：ToolChoiceObj
      * @since 1.1.2
      */
@@ -168,11 +167,6 @@ public class BaseChatCompletion implements Serializable {
          */
         GPT_3_5_TURBO("gpt-3.5-turbo"),
         /**
-         * 临时模型，不建议使用，2023年9 月 13 日将被弃用
-         */
-        @Deprecated
-        GPT_3_5_TURBO_0301("gpt-3.5-turbo-0301"),
-        /**
          * gpt-3.5-turbo-0613 支持函数
          */
         GPT_3_5_TURBO_0613("gpt-3.5-turbo-0613"),
@@ -189,23 +183,18 @@ public class BaseChatCompletion implements Serializable {
          */
         GPT_3_5_TURBO_1106("gpt-3.5-turbo-1106"),
         /**
-         * GPT4.0
+         * GPT 4.0
          */
         GPT_4("gpt-4"),
+        GPT_4_TURBO("gpt-4-turbo"),
         /**
-         * 临时模型，不建议使用，2023年9 月 13 日将被弃用
+         * GPT 4.1
          */
-        @Deprecated
-        GPT_4_0314("gpt-4-0314"),
+        GPT_4_1("gpt-4.1"),
         /**
          * GPT4.0 超长上下文
          */
         GPT_4_32K("gpt-4-32k"),
-        /**
-         * 临时模型，不建议使用，2023年9 月 13 日将被弃用
-         */
-        @Deprecated
-        GPT_4_32K_0314("gpt-4-32k-0314"),
 
         /**
          * gpt-4-0613，支持函数
@@ -223,6 +212,12 @@ public class BaseChatCompletion implements Serializable {
          * 支持图片
          */
         GPT_4_VISION_PREVIEW("gpt-4-vision-preview"),
+        GPT_4O("gpt-4o"),
+        GPT_4O_MINI("gpt-4o-mini"),
+        GPT_4_5_PREVIEW("gpt-4.5-preview"),
+        O3("o3"),
+        O3_MINI("o3-mini"),
+        O4_MINI("o4-mini"),
         ;
         private final String name;
     }
