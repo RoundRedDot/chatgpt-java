@@ -34,6 +34,7 @@ public class ResponseFormat implements Serializable {
     @AllArgsConstructor
     public enum Type {
         JSON_OBJECT("json_object"),
+        JSON_SCHEMA("json_schema"),
         TEXT("text"),
         ;
         private final String name;

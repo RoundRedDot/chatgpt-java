@@ -19,10 +19,10 @@ import java.util.List;
 @Data
 @SuperBuilder
 @Slf4j
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ChatCompletion extends BaseChatCompletion {
 
     /**

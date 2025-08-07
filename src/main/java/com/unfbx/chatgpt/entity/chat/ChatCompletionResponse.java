@@ -23,7 +23,7 @@ import lombok.Data;
 public class ChatCompletionResponse implements Serializable {
     private String id;
     private String object;
-    private long created;
+    private Long created;
 
     /**
      * 创建时间戳（新版responses API使用）

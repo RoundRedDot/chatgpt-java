@@ -16,7 +16,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ChatChoice implements Serializable {
 
-    private long index;
+    private Long index;
     /**
      * 请求参数stream为true返回是delta
      */
