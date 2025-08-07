@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Item implements Serializable {
+public class EmbeddingResponseItem implements Serializable {
     private String object;
     private List<BigDecimal> embedding;
     private Integer index;

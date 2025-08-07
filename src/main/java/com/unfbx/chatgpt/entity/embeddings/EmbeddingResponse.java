@@ -18,7 +18,7 @@ import java.util.List;
 public class EmbeddingResponse implements Serializable {
 
     private String object;
-    private List<Item> data;
+    private List<EmbeddingResponseItem> data;
     private String model;
     private Usage usage;
 }
