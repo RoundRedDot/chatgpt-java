@@ -35,7 +35,7 @@ public abstract class PluginAbstract<R extends PluginParam, T> {
 
     public void setRequired(List<String> required) {
         if (CollectionUtil.isEmpty(required)) {
-            this.required = this.getArgs().stream().filter(e -> e.isRequired()).map(Arg::getName).collect(Collectors.toList());
+            this.required = this.getArgs().stream().filter(Arg::isRequired).map(Arg::getName).collect(Collectors.toList());
             return;
         }
         this.required = required;
@@ -43,7 +43,7 @@ public abstract class PluginAbstract<R extends PluginParam, T> {
 
     private void setRequired() {
         if (CollectionUtil.isEmpty(required)) {
-            this.required = this.getArgs().stream().filter(e -> e.isRequired()).map(Arg::getName).collect(Collectors.toList());
+            this.required = this.getArgs().stream().filter(Arg::isRequired).map(Arg::getName).collect(Collectors.toList());
         }
     }
 

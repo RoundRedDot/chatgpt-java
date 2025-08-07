@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 描述：
  *
- * @author https://www.unfbx.com
+ * @author grt1228
  * @since 1.1.2
  * 2023-11-10
  */
@@ -25,7 +25,9 @@ public class Content {
      * @see Type
      */
     private String type;
+
     private String text;
+
     @JsonProperty("image_url")
     private ImageUrl imageUrl;
 

@@ -1,6 +1,7 @@
 package com.unfbx.chatgpt.sse;
 
-import cn.hutool.json.JSONUtil;
+import java.util.Objects;
+
 import com.unfbx.chatgpt.OpenAiStreamClient;
 import com.unfbx.chatgpt.entity.chat.ChatCompletion;
 import com.unfbx.chatgpt.entity.chat.ChatCompletionResponse;
@@ -8,7 +9,8 @@ import com.unfbx.chatgpt.entity.chat.FunctionCall;
 import com.unfbx.chatgpt.entity.chat.Message;
 import com.unfbx.chatgpt.plugin.PluginAbstract;
 import com.unfbx.chatgpt.plugin.PluginParam;
-import lombok.Getter;
+
+import cn.hutool.json.JSONUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Response;
@@ -16,15 +18,11 @@ import okhttp3.ResponseBody;
 import okhttp3.sse.EventSource;
 import okhttp3.sse.EventSourceListener;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
-
 /**
  * 描述： 插件开发返回信息收集sse监听器
  *
- * @author https:www.unfbx.com
- * 2023-08-18
+ * @author grt1228
+ *         2023-08-18
  */
 @Slf4j
 public abstract class PluginListener<R extends PluginParam, T> extends EventSourceListener {
@@ -42,10 +40,10 @@ public abstract class PluginListener<R extends PluginParam, T> extends EventSour
         return this.arguments;
     }
 
-    private OpenAiStreamClient client;
-    private EventSourceListener eventSourceListener;
-    private PluginAbstract<R, T> plugin;
-    private ChatCompletion chatCompletion;
+    private final OpenAiStreamClient client;
+    private final EventSourceListener eventSourceListener;
+    private final PluginAbstract<R, T> plugin;
+    private final ChatCompletion chatCompletion;
 
     /**
      * 构造方法必备四个元素
@@ -55,7 +53,8 @@ public abstract class PluginListener<R extends PluginParam, T> extends EventSour
      * @param plugin              插件信息
      * @param chatCompletion      请求参数
      */
-    public PluginListener(OpenAiStreamClient client, EventSourceListener eventSourceListener, PluginAbstract<R, T> plugin, ChatCompletion chatCompletion) {
+    public PluginListener(OpenAiStreamClient client, EventSourceListener eventSourceListener,
+            PluginAbstract<R, T> plugin, ChatCompletion chatCompletion) {
         this.client = client;
         this.eventSourceListener = eventSourceListener;
         this.plugin = plugin;
@@ -75,14 +74,15 @@ public abstract class PluginListener<R extends PluginParam, T> extends EventSour
                 .arguments(getArguments())
                 .name(plugin.getFunction())
                 .build();
-        chatCompletion.getMessages().add(Message.builder().role(Message.Role.ASSISTANT).content("function_call").functionCall(functionCall).build());
-        chatCompletion.getMessages().add(Message.builder().role(Message.Role.FUNCTION).name(plugin.getFunction()).content(plugin.content(tq)).build());
-        //设置第二次，请求的参数
+        chatCompletion.getMessages().add(Message.builder().role(Message.Role.ASSISTANT).content("function_call")
+                .functionCall(functionCall).build());
+        chatCompletion.getMessages().add(Message.builder().role(Message.Role.FUNCTION).name(plugin.getFunction())
+                .content(plugin.content(tq)).build());
+        // 设置第二次，请求的参数
         chatCompletion.setFunctionCall(null);
         chatCompletion.setFunctions(null);
         client.streamChatCompletion(chatCompletion, eventSourceListener);
     }
-
 
     @Override
     public final void onEvent(EventSource eventSource, String id, String type, String data) {

@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * 描述：文本审核，敏感词鉴别
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  *  2023-02-15
  */
 @Data
@@ -28,7 +28,7 @@ public class Moderation implements Serializable {
     private String model = Model.TEXT_MODERATION_LATEST.getName();
 
     public void setInput(List<String> input) {
-        if (Objects.isNull(input) || input.size() == 0) {
+        if (Objects.isNull(input) || input.isEmpty()) {
             log.error("input不能为空");
             throw new BaseException(CommonError.PARAM_ERROR);
         }

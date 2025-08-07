@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 描述：
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * @since 1.1.2
  * 2023-03-02
  */
@@ -26,7 +26,7 @@ public class BaseMessage implements Serializable {
 
     /**
      * 目前支持四个中角色参考官网，进行情景输入：
-     * https://platform.openai.com/docs/guides/chat/introduction
+     * <a href="https://platform.openai.com/docs/guides/chat/introduction">Role</a>
      */
     private String role;
 

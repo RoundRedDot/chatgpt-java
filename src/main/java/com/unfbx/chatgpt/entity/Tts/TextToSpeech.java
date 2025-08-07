@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+/**
+ * @author grt1228
+ */
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)

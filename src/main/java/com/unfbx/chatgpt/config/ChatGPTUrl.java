@@ -6,8 +6,8 @@ import lombok.Getter;
 /**
  * 描述： api地址
  *
- * @author https:www.unfbx.com
- *  2023-02-11
+ * @author grt1228
+ * 2023-02-11
  */
 @Getter
 @AllArgsConstructor

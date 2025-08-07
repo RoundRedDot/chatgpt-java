@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 描述：
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  *  2023-02-15
  */
 @Data
@@ -21,7 +21,7 @@ public class OpenAiResponse<T> implements Serializable {
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class Error {
+    public static class Error {
         private String message;
         private String type;
         private String param;

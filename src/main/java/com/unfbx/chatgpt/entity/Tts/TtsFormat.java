@@ -3,6 +3,9 @@ package com.unfbx.chatgpt.entity.Tts;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * @author grt1228
+ */
 @Getter
 @AllArgsConstructor
 public enum TtsFormat {

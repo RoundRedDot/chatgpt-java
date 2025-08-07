@@ -13,16 +13,16 @@ import java.io.Serializable;
 /**
  * 描述：
  *
- * @author https://www.unfbx.com
+ * @author grt1228
  * @since 1.1.3
  * 2023-11-20
  */
 @Getter
 @Slf4j
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MessageCreation implements Serializable {
     @JsonProperty("message_id")
     private String messageId;

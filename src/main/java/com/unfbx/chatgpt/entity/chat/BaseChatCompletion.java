@@ -2,9 +2,9 @@ package com.unfbx.chatgpt.entity.chat;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.unfbx.chatgpt.entity.chat.tool.Tools;
 import com.unfbx.chatgpt.entity.chat.tool.ToolChoice;
 import com.unfbx.chatgpt.entity.chat.tool.ToolChoiceObj;
+import com.unfbx.chatgpt.entity.chat.tool.Tools;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -15,15 +15,15 @@ import java.util.Map;
 /**
  * 描述： chat模型基础类
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * @since 1.1.2
  * 2023-11-10
  */
 @Data
 @SuperBuilder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseChatCompletion implements Serializable {
 
     @NonNull

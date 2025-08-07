@@ -3,7 +3,7 @@ package com.unfbx.chatgpt.exception;
 /**
  * 描述： 错误
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  *  2023-02-11
  */
 public enum CommonError implements IError {

@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
+/**
+ * @author grt1228
+ */
 @Data
 @Builder
 @NoArgsConstructor

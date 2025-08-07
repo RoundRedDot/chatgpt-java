@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * 描述：动态处理key的鉴权拦截器
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * @since 2023-04-25
  */
 @Getter

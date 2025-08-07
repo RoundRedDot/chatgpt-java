@@ -6,13 +6,17 @@ import com.unfbx.chatgpt.entity.assistant.message.MessageFileResponse;
 import com.unfbx.chatgpt.entity.assistant.message.MessageResponse;
 import com.unfbx.chatgpt.entity.assistant.message.ModifyMessage;
 import com.unfbx.chatgpt.entity.assistant.run.*;
+import com.unfbx.chatgpt.entity.assistant.thread.ModifyThread;
+import com.unfbx.chatgpt.entity.assistant.thread.Thread;
 import com.unfbx.chatgpt.entity.assistant.thread.ThreadMessage;
+import com.unfbx.chatgpt.entity.assistant.thread.ThreadResponse;
 import com.unfbx.chatgpt.entity.billing.BillingUsage;
 import com.unfbx.chatgpt.entity.billing.CreditGrantsResponse;
 import com.unfbx.chatgpt.entity.billing.Subscription;
 import com.unfbx.chatgpt.entity.chat.ChatCompletion;
 import com.unfbx.chatgpt.entity.chat.ChatCompletionResponse;
 import com.unfbx.chatgpt.entity.chat.ChatCompletionWithPicture;
+import com.unfbx.chatgpt.entity.common.DeleteResponse;
 import com.unfbx.chatgpt.entity.common.OpenAiResponse;
 import com.unfbx.chatgpt.entity.completions.Completion;
 import com.unfbx.chatgpt.entity.completions.CompletionResponse;
@@ -22,7 +26,6 @@ import com.unfbx.chatgpt.entity.embeddings.Embedding;
 import com.unfbx.chatgpt.entity.embeddings.EmbeddingResponse;
 import com.unfbx.chatgpt.entity.engines.Engine;
 import com.unfbx.chatgpt.entity.files.File;
-import com.unfbx.chatgpt.entity.common.DeleteResponse;
 import com.unfbx.chatgpt.entity.files.UploadFileResponse;
 import com.unfbx.chatgpt.entity.fineTune.Event;
 import com.unfbx.chatgpt.entity.fineTune.FineTune;
@@ -38,9 +41,6 @@ import com.unfbx.chatgpt.entity.models.Model;
 import com.unfbx.chatgpt.entity.models.ModelResponse;
 import com.unfbx.chatgpt.entity.moderations.Moderation;
 import com.unfbx.chatgpt.entity.moderations.ModerationResponse;
-import com.unfbx.chatgpt.entity.assistant.thread.ModifyThread;
-import com.unfbx.chatgpt.entity.assistant.thread.Thread;
-import com.unfbx.chatgpt.entity.assistant.thread.ThreadResponse;
 import com.unfbx.chatgpt.entity.whisper.WhisperResponse;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
@@ -55,7 +55,7 @@ import java.util.Map;
 /**
  * 描述： open ai官方api接口
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * 2023-02-15
  */
 public interface OpenAiApi {
@@ -623,7 +623,9 @@ public interface OpenAiApi {
      */
     @POST("v1/threads/{thread_id}/messages/{message_id}")
     @Headers("OpenAI-Beta: assistants=v1")
-    Single<MessageResponse> modifyMessage(@Path("thread_id") String threadId, @Path("message_id") String messageId, @Body ModifyMessage message);
+    Single<MessageResponse> modifyMessage(@Path("thread_id") String threadId,
+                                          @Path("message_id") String messageId,
+                                          @Body ModifyMessage message);
 
     /**
      * 获取某一个线程的消息集合
@@ -639,7 +641,10 @@ public interface OpenAiApi {
     @GET("v1/threads/{thread_id}/messages")
     @Headers("OpenAI-Beta: assistants=v1")
     Single<AssistantListResponse<MessageResponse>> messages(@Path("thread_id") String threadId,
-                                                            @Query("limit") Integer limit, @Query("order") String order, @Query("before") String before, @Query("after") String after);
+                                                            @Query("limit") Integer limit,
+                                                            @Query("order") String order,
+                                                            @Query("before") String before,
+                                                            @Query("after") String after);
 
     /**
      * 检索某一个线程对应某一个消息的一个文件信息
@@ -652,7 +657,9 @@ public interface OpenAiApi {
      */
     @GET("v1/threads/{thread_id}/messages/{message_id}/files/{file_id}")
     @Headers("OpenAI-Beta: assistants=v1")
-    Single<MessageFileResponse> retrieveMessageFile(@Path("thread_id") String threadId, @Path("message_id") String messageId, @Path("file_id") String fileId);
+    Single<MessageFileResponse> retrieveMessageFile(@Path("thread_id") String threadId,
+                                                    @Path("message_id") String messageId,
+                                                    @Path("file_id") String fileId);
 
     /**
      * messageFiles集合
@@ -668,8 +675,12 @@ public interface OpenAiApi {
      */
     @GET("v1/threads/{thread_id}/messages/{message_id}/files")
     @Headers("OpenAI-Beta: assistants=v1")
-    Single<AssistantListResponse<MessageFileResponse>> messageFiles(@Path("thread_id") String threadId, @Path("message_id") String messageId,
-                                                                @Query("limit") Integer limit, @Query("order") String order, @Query("before") String before, @Query("after") String after);
+    Single<AssistantListResponse<MessageFileResponse>> messageFiles(@Path("thread_id") String threadId,
+                                                                    @Path("message_id") String messageId,
+                                                                    @Query("limit") Integer limit,
+                                                                    @Query("order") String order,
+                                                                    @Query("before") String before,
+                                                                    @Query("after") String after);
 
 
     /**
@@ -708,7 +719,9 @@ public interface OpenAiApi {
      */
     @POST("v1/threads/{thread_id}/runs/{run_id}")
     @Headers("OpenAI-Beta: assistants=v1")
-    Single<RunResponse> modifyRun(@Path("thread_id") String threadId, @Path("run_id") String runId, @Body ModifyRun run);
+    Single<RunResponse> modifyRun(@Path("thread_id") String threadId,
+                                  @Path("run_id") String runId,
+                                  @Body ModifyRun run);
 
 
     /**
@@ -725,7 +738,10 @@ public interface OpenAiApi {
     @GET("v1/threads/{thread_id}/runs")
     @Headers("OpenAI-Beta: assistants=v1")
     Single<AssistantListResponse<RunResponse>> runs(@Path("thread_id") String threadId,
-                                                    @Query("limit") Integer limit, @Query("order") String order, @Query("before") String before, @Query("after") String after);
+                                                    @Query("limit") Integer limit,
+                                                    @Query("order") String order,
+                                                    @Query("before") String before,
+                                                    @Query("after") String after);
 
 
     /**
@@ -739,7 +755,9 @@ public interface OpenAiApi {
      */
     @POST("v1/threads/{thread_id}/runs/{run_id}/submit_tool_outputs")
     @Headers("OpenAI-Beta: assistants=v1")
-    Single<RunResponse> submitToolOutputs(@Path("thread_id") String threadId, @Path("run_id") String runId, @Body ToolOutputBody toolOutputs);
+    Single<RunResponse> submitToolOutputs(@Path("thread_id") String threadId,
+                                          @Path("run_id") String runId,
+                                          @Body ToolOutputBody toolOutputs);
 
 
     /**
@@ -777,7 +795,9 @@ public interface OpenAiApi {
      */
     @GET("v1/threads/{thread_id}/runs/{run_id}/steps/{step_id}")
     @Headers("OpenAI-Beta: assistants=v1")
-    Single<RunStepResponse> retrieveRunStep(@Path("thread_id") String threadId, @Path("run_id") String runId, @Path("step_id") String stepId);
+    Single<RunStepResponse> retrieveRunStep(@Path("thread_id") String threadId,
+                                            @Path("run_id") String runId,
+                                            @Path("step_id") String stepId);
 
 
     /**
@@ -794,7 +814,11 @@ public interface OpenAiApi {
      */
     @GET("v1/threads/{thread_id}/runs/{run_id}/steps")
     @Headers("OpenAI-Beta: assistants=v1")
-    Single<AssistantListResponse<RunStepResponse>> runSteps(@Path("thread_id") String threadId, @Path("run_id") String runId,
-                                                            @Query("limit") Integer limit, @Query("order") String order, @Query("before") String before, @Query("after") String after);
+    Single<AssistantListResponse<RunStepResponse>> runSteps(@Path("thread_id") String threadId,
+                                                            @Path("run_id") String runId,
+                                                            @Query("limit") Integer limit,
+                                                            @Query("order") String order,
+                                                            @Query("before") String before,
+                                                            @Query("after") String after);
 
 }

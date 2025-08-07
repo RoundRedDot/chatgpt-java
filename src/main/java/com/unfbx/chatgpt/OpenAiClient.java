@@ -79,7 +79,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 描述： open ai 客户端
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * @since 2023-02-11
  */
 
@@ -90,25 +90,26 @@ public class OpenAiClient {
      */
     @Getter
     @NotNull
-    private List<String> apiKey;
+    private final List<String> apiKey;
     /**
      * 自定义api host使用builder的方式构造client
      */
     @Getter
-    private String apiHost;
+    private final String apiHost;
+
     @Getter
-    private OpenAiApi openAiApi;
+    private final OpenAiApi openAiApi;
     /**
      * 自定义的okHttpClient
      * 如果不自定义 ，就是用sdk默认的OkHttpClient实例
      */
     @Getter
-    private OkHttpClient okHttpClient;
+    private final OkHttpClient okHttpClient;
     /**
      * api key的获取策略
      */
     @Getter
-    private KeyStrategyFunction<List<String>, String> keyStrategy;
+    private final KeyStrategyFunction<List<String>, String> keyStrategy;
 
     /**
      * 自定义鉴权处理拦截器<br/>
@@ -125,7 +126,7 @@ public class OpenAiClient {
      * 默认的分页参数
      */
     @Getter
-    private PageRequest pageRequest = PageRequest.builder().build();
+    private final PageRequest pageRequest = PageRequest.builder().build();
 
     @Getter
     private static final Headers assistantsHeader = Headers.of("OpenAI-Beta", "assistants=v1");
@@ -141,8 +142,6 @@ public class OpenAiClient {
 
     /**
      * 构造
-     *
-     * @param builder
      */
     private OpenAiClient(Builder builder) {
         if (CollectionUtil.isEmpty(builder.apiKey)) {
@@ -188,8 +187,6 @@ public class OpenAiClient {
 
     /**
      * 创建默认OkHttpClient
-     *
-     * @return
      */
     private OkHttpClient okHttpClient() {
         if (Objects.isNull(this.authInterceptor)) {
@@ -222,7 +219,7 @@ public class OpenAiClient {
      * @return Model    模型类
      */
     public Model model(String id) {
-        if (Objects.isNull(id) || "".equals(id)) {
+        if (Objects.isNull(id) || id.isEmpty()) {
             throw new BaseException(CommonError.PARAM_ERROR);
         }
         Single<Model> model = this.openAiApi.model(id);
@@ -400,8 +397,6 @@ public class OpenAiClient {
 
     /**
      * 校验图片不能为空
-     *
-     * @param image
      */
     private void checkImage(java.io.File image) {
         if (Objects.isNull(image)) {
@@ -412,8 +407,6 @@ public class OpenAiClient {
 
     /**
      * 校验图片格式
-     *
-     * @param image
      */
     private void checkImageFormat(java.io.File image) {
         if (!(image.getName().endsWith("png") || image.getName().endsWith("PNG"))) {
@@ -424,8 +417,6 @@ public class OpenAiClient {
 
     /**
      * 校验图片大小
-     *
-     * @param image
      */
     private void checkImageSize(java.io.File image) {
         if (image.length() > 4 * 1024 * 1024) {
@@ -891,8 +882,6 @@ public class OpenAiClient {
 
     /**
      * 校验语音文件大小给出提示，目前官方限制25MB，后续可能会改动所以不报错只做提示
-     *
-     * @param file
      */
     private void checkSpeechFileSize(java.io.File file) {
         if (file.length() > 25 * 1204 * 1024) {
@@ -1236,7 +1225,6 @@ public class OpenAiClient {
      *
      * @param threadId    线程id
      * @param pageRequest 分页信息
-     * @return
      * @since 1.1.3
      */
     public AssistantListResponse<MessageResponse> messages(String threadId, PageRequest pageRequest) {
@@ -1254,7 +1242,6 @@ public class OpenAiClient {
      * @param threadId  线程id
      * @param messageId 消息id
      * @param fileId    文件id
-     * @return
      * @since 1.1.3
      */
     public MessageFileResponse retrieveMessageFile(String threadId, String messageId, String fileId) {
@@ -1267,7 +1254,6 @@ public class OpenAiClient {
      * @param threadId    线程id
      * @param messageId   消息id
      * @param pageRequest 分页信息
-     * @return
      * @since 1.1.3
      */
     public AssistantListResponse<MessageFileResponse> messageFiles(String threadId, String messageId, PageRequest pageRequest) {
@@ -1285,7 +1271,6 @@ public class OpenAiClient {
      *
      * @param threadId 线程id
      * @param run      run
-     * @return
      * @since 1.1.3
      */
     public RunResponse run(String threadId, Run run) {
@@ -1298,7 +1283,6 @@ public class OpenAiClient {
      * @param threadId            线程id
      * @param run                 run
      * @param eventSourceListener eventSourceListener
-     * @return
      * @since 1.1.6
      */
     public void runWithStream(String threadId, Run run, EventSourceListener eventSourceListener) {
@@ -1319,7 +1303,6 @@ public class OpenAiClient {
      *
      * @param threadId 线程id
      * @param runId    run_id
-     * @return
      * @since 1.1.3
      */
     public RunResponse retrieveRun(String threadId, String runId) {
@@ -1332,7 +1315,6 @@ public class OpenAiClient {
      * @param threadId 线程id
      * @param runId    run_id
      * @param run      消息体
-     * @return
      * @since 1.1.3
      */
     public RunResponse modifyRun(String threadId, String runId, ModifyRun run) {
@@ -1345,7 +1327,6 @@ public class OpenAiClient {
      *
      * @param threadId    线程id
      * @param pageRequest 分页信息
-     * @return
      * @since 1.1.3
      */
     public AssistantListResponse<RunResponse> runs(String threadId, PageRequest pageRequest) {
@@ -1364,7 +1345,6 @@ public class OpenAiClient {
      * @param threadId    线程id
      * @param runId       run id
      * @param toolOutputs 为其提交输出的工具列表。
-     * @return
      * @since 1.1.3
      */
     public RunResponse submitToolOutputs(String threadId, String runId, ToolOutputBody toolOutputs) {
@@ -1377,7 +1357,6 @@ public class OpenAiClient {
      *
      * @param threadId 线程id
      * @param runId    run id
-     * @return
      * @since 1.1.3
      */
     public RunResponse cancelRun(String threadId, String runId) {
@@ -1389,7 +1368,6 @@ public class OpenAiClient {
      * 创建一个线程并在一个请求中运行它
      *
      * @param threadRun 对象
-     * @return
      * @since 1.1.3
      */
     public RunResponse threadRun(ThreadRun threadRun) {
@@ -1402,7 +1380,6 @@ public class OpenAiClient {
      * @param threadId 线程id
      * @param runId    run_id
      * @param stepId   step_id
-     * @return
      * @since 1.1.3
      */
     public RunStepResponse retrieveRunStep(String threadId, String runId, String stepId) {
@@ -1420,7 +1397,6 @@ public class OpenAiClient {
      * @param threadId    线程id
      * @param runId       run_id
      * @param pageRequest 分页信息
-     * @return
      * @since 1.1.3
      */
     public AssistantListResponse<RunStepResponse> runSteps(String threadId, String runId, PageRequest pageRequest) {

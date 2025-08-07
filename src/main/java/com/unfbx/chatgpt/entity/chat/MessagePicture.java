@@ -1,28 +1,30 @@
 package com.unfbx.chatgpt.entity.chat;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.unfbx.chatgpt.entity.chat.tool.ToolCalls;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.List;
+import lombok.EqualsAndHashCode;
 
 /**
  * 描述：
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * @since 2023-03-02
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
-public class MessagePicture extends BaseMessage implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class MessagePicture extends BaseMessage {
     /**
      * Content数组支持多图片输入
-     * https://platform.openai.com/docs/guides/vision
+     * <a href="https://platform.openai.com/docs/guides/vision">vision</a>
      */
     private List<Content> content;
 

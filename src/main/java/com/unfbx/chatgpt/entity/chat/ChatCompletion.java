@@ -2,20 +2,18 @@ package com.unfbx.chatgpt.entity.chat;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.unfbx.chatgpt.utils.TikTokensUtil;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * 描述： chat模型参数
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * 2023-03-02
  */
 @Data
@@ -24,7 +22,8 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatCompletion extends BaseChatCompletion implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class ChatCompletion extends BaseChatCompletion {
 
     /**
      * 问题描述

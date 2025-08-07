@@ -3,6 +3,7 @@ package com.unfbx.chatgpt.interceptor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Map;
 /**
  * 描述：请求增加header apikey
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * @since 2023-03-23
  */
 @Slf4j
@@ -40,7 +41,7 @@ public class DefaultOpenAiAuthInterceptor extends OpenAiAuthInterceptor {
      * @throws IOException io异常
      */
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public @NotNull Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
         return chain.proceed(auth(super.getKey(), original));
     }

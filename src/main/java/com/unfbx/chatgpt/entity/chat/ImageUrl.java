@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 描述：
  *
- * @author https://www.unfbx.com
+ * @author grt1228
  * 2023-11-10
  */
 @Data
@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ImageUrl {
     /**
      * 图片地址，支持base64. eg: data:image/jpeg;base64,{base64_image}   <p\>
-     * https://platform.openai.com/docs/guides/vision
+     * <a href="https://platform.openai.com/docs/guides/vision">vision</a>
      */
     private String url;
 }

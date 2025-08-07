@@ -10,7 +10,7 @@ import okhttp3.sse.EventSourceListener;
 /**
  * 描述： 插件开发返回信息收集sse监听器
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * 2023-08-18
  */
 @Slf4j

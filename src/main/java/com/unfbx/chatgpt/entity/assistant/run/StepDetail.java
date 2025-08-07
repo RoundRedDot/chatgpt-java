@@ -12,16 +12,16 @@ import java.util.List;
 /**
  * 描述：
  *
- * @author https://www.unfbx.com
+ * @author grt1228
  * @since 1.1.3
  * 2023-11-20
  */
 @Data
 @Slf4j
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StepDetail implements Serializable {
 

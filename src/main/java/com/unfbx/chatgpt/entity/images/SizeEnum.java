@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 描述：生成图片尺寸大小
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * 2023-02-15
  */
 @Getter

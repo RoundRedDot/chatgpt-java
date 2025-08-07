@@ -12,8 +12,8 @@ import java.util.Objects;
 /**
  * 描述：
  *
- * @author https:www.unfbx.com
- *  2023-02-15
+ * @author grt1228
+ * 2023-02-15
  */
 @Data
 @Slf4j
@@ -33,7 +33,8 @@ public class Embedding implements Serializable {
 
     private String user;
     /**
-     *  Can be either float or base64.
+     * Can be either float or base64.
+     *
      * @see EncodingFormat
      */
     @JsonProperty("encoding_format")
@@ -44,11 +45,6 @@ public class Embedding implements Serializable {
             model = Model.TEXT_EMBEDDING_ADA_002;
         }
         this.model = model.getName();
-    }
-
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     @Getter

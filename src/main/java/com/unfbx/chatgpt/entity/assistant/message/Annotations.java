@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
  * 描述：
  * https://platform.openai.com/docs/api-reference/messages/object
  *
- * @author https://www.unfbx.com
+ * @author grt1228
  * @since 1.1.3
  * 2023-11-20
  */
@@ -28,7 +28,7 @@ public class Annotations {
     private String text;
 
     /**
-     * https://platform.openai.com/docs/api-reference/messages/object
+     * <a href="https://platform.openai.com/docs/api-reference/messages/object">object</a>
      * <p>
      * A citation within the message that points to a specific quote from a specific File associated with the assistant or the message.
      * Generated when the assistant uses the "retrieval" tool to search files.
@@ -37,7 +37,7 @@ public class Annotations {
     private FileCitation fileCitation;
 
     /**
-     * https://platform.openai.com/docs/api-reference/messages/object
+     * <a href="https://platform.openai.com/docs/api-reference/messages/object">object</a>
      * A URL for the file that's generated when the assistant used the code_interpreter tool to generate a file.
      */
     @JsonProperty("file_path")

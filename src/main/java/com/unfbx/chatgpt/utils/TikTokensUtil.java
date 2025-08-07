@@ -10,6 +10,7 @@ import java.util.*;
 
 /**
  * Token calculation tool class
+ * @author grt1228
  */
 public class TikTokensUtil {
     /**

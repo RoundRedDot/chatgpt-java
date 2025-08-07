@@ -4,6 +4,7 @@ import lombok.*;
 
 /**
  * 指定模型必须输出的格式的对象。
+ * @author grt1228
  */
 @Data
 @Builder

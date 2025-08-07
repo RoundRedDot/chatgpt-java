@@ -7,6 +7,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author grt1228
+ */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FineTuneJobListResponse<T> implements Serializable {

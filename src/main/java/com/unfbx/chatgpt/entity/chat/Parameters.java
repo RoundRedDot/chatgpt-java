@@ -23,7 +23,7 @@ import java.util.List;
  *     "required": ["location"]
  * }
  * </pre>
- * @author https:www.unfbx.com
+ * @author grt1228
  * @since  2023-06-14
  */
 @Data

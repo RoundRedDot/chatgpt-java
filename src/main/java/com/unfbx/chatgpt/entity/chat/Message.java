@@ -1,25 +1,27 @@
 package com.unfbx.chatgpt.entity.chat;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.unfbx.chatgpt.entity.chat.tool.ToolCalls;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.List;
+import lombok.EqualsAndHashCode;
 
 /**
  * 描述：
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * @since 2023-11-10
  */
 @Data
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@AllArgsConstructor
-public class Message extends BaseMessage implements Serializable {
+public class Message extends BaseMessage {
     /**
      * 旧的content属性仅仅支持字符类型
      */

@@ -8,12 +8,15 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 
+/**
+ * @author grt1228
+ */
 @Data
 @Slf4j
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Tool implements Serializable {
 

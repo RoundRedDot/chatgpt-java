@@ -6,6 +6,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @author grt1228
+ */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TrainingFile implements Serializable {

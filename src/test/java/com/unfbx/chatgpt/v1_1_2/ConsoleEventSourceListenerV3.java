@@ -22,7 +22,7 @@ import java.util.concurrent.CountDownLatch;
 /**
  * 描述： demo测试实现类，仅供思路参考
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * 2023-11-12
  */
 @Slf4j

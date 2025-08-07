@@ -49,7 +49,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 描述： open ai 客户端
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * 2023-02-28
  */
 
@@ -57,27 +57,27 @@ import java.util.concurrent.TimeUnit;
 public class OpenAiStreamClient {
     @Getter
     @NotNull
-    private List<String> apiKey;
+    private final List<String> apiKey;
     /**
      * 自定义api host使用builder的方式构造client
      */
     @Getter
-    private String apiHost;
+    private final String apiHost;
     /**
      * 自定义的okHttpClient
      * 如果不自定义 ，就是用sdk默认的OkHttpClient实例
      */
     @Getter
-    private OkHttpClient okHttpClient;
+    private final OkHttpClient okHttpClient;
 
     /**
      * api key的获取策略
      */
     @Getter
-    private KeyStrategyFunction<List<String>, String> keyStrategy;
+    private final KeyStrategyFunction<List<String>, String> keyStrategy;
 
     @Getter
-    private OpenAiApi openAiApi;
+    private final OpenAiApi openAiApi;
 
     /**
      * 自定义鉴权处理拦截器<br/>
@@ -92,8 +92,6 @@ public class OpenAiStreamClient {
 
     /**
      * 构造实例对象
-     *
-     * @param builder
      */
     private OpenAiStreamClient(Builder builder) {
         if (CollectionUtil.isEmpty(builder.apiKey)) {

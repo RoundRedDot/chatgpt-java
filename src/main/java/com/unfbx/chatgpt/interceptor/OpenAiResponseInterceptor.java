@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -15,17 +16,17 @@ import java.util.Objects;
 /**
  * 描述：openai 返回值处理Interceptor
  *
- * @author https:www.unfbx.com
- * @since  2023-03-23
+ * @author grt1228
+ * @since 2023-03-23
  */
 @Slf4j
 public class OpenAiResponseInterceptor implements Interceptor {
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public @NotNull Response intercept(Chain chain) throws IOException {
 
         Request original = chain.request();
         Response response = chain.proceed(original);
-        if (!response.isSuccessful() && response.body() != null) {
+        if (!response.isSuccessful()) {
             if (response.code() == CommonError.OPENAI_AUTHENTICATION_ERROR.code()
                     || response.code() == CommonError.OPENAI_LIMIT_ERROR.code()
                     || response.code() == CommonError.OPENAI_SERVER_ERROR.code()) {

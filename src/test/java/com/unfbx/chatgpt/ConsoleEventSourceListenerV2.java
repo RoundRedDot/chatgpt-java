@@ -16,7 +16,7 @@ import java.util.concurrent.CountDownLatch;
 /**
  * 描述： sse
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * 2023-06-15
  */
 @Slf4j

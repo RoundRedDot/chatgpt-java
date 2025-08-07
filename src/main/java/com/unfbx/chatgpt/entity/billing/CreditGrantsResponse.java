@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 /**
  * 描述：余额查询接口返回值
  *
- * @author https:www.unfbx.com
+ * @author grt1228
  * @since 2023-03-18
  */
 @Data
