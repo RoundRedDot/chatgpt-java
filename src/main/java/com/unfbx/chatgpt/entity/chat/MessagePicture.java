@@ -39,15 +39,15 @@ public class MessagePicture extends BaseMessage {
      * @param role         角色
      * @param name         name
      * @param content      content
-     * @param functionCall functionCall
+     * @param toolCalls    工具调用列表
+     * @param toolCallId   工具调用ID
      */
-    public MessagePicture(String role, String name, List<Content> content, List<ToolCalls> toolCalls, String toolCallId, FunctionCall functionCall) {
+    public MessagePicture(String role, String name, List<Content> content, List<ToolCalls> toolCalls, String toolCallId) {
         this.content = content;
         super.setRole(role);
         super.setName(name);
         super.setToolCalls(toolCalls);
         super.setToolCallId(toolCallId);
-        super.setFunctionCall(functionCall);
     }
 
     public MessagePicture() {
@@ -57,9 +57,9 @@ public class MessagePicture extends BaseMessage {
         setContent(builder.content);
         super.setRole(builder.role);
         super.setName(builder.name);
-        super.setFunctionCall(builder.functionCall);
         super.setToolCalls(builder.toolCalls);
         super.setToolCallId(builder.toolCallId);
+        super.setFunctionCall(builder.functionCall);
     }
 
     public static final class Builder {
@@ -93,10 +93,7 @@ public class MessagePicture extends BaseMessage {
             return this;
         }
 
-        public Builder functionCall(FunctionCall functionCall) {
-            this.functionCall = functionCall;
-            return this;
-        }
+
 
         public Builder toolCalls(List<ToolCalls> toolCalls) {
             this.toolCalls = toolCalls;
@@ -105,6 +102,12 @@ public class MessagePicture extends BaseMessage {
 
         public Builder toolCallId(String toolCallId) {
             this.toolCallId = toolCallId;
+            return this;
+        }
+        
+        @Deprecated
+        public Builder functionCall(FunctionCall functionCall) {
+            this.functionCall = functionCall;
             return this;
         }
 

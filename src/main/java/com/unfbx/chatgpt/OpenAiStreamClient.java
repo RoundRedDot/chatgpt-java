@@ -3,16 +3,16 @@ package com.unfbx.chatgpt;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.ContentType;
-import cn.hutool.json.JSONUtil;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unfbx.chatgpt.constant.OpenAIConst;
-import com.unfbx.chatgpt.entity.Tts.TextToSpeech;
+
 import com.unfbx.chatgpt.entity.billing.BillingUsage;
 import com.unfbx.chatgpt.entity.billing.CreditGrantsResponse;
 import com.unfbx.chatgpt.entity.billing.Subscription;
 import com.unfbx.chatgpt.entity.chat.*;
-import com.unfbx.chatgpt.entity.common.OpenAiResponse;
+
 import com.unfbx.chatgpt.entity.completions.Completion;
 import com.unfbx.chatgpt.exception.BaseException;
 import com.unfbx.chatgpt.exception.CommonError;
@@ -28,7 +28,7 @@ import com.unfbx.chatgpt.sse.DefaultPluginListener;
 import com.unfbx.chatgpt.sse.PluginListener;
 import io.reactivex.Single;
 import lombok.Getter;
-import lombok.SneakyThrows;
+
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import okhttp3.sse.EventSource;
@@ -283,9 +283,9 @@ public class OpenAiStreamClient {
                 .description(plugin.getDescription())
                 .parameters(plugin.getParameters())
                 .build();
-        //没有值，设置默认值
-        if (Objects.isNull(chatCompletion.getFunctionCall())) {
-            chatCompletion.setFunctionCall("auto");
+        //没有值，设置默认值（使用新的 toolChoice 替代已废弃的 functionCall）
+        if (Objects.isNull(chatCompletion.getToolChoice())) {
+            chatCompletion.setToolChoice("auto");
         }
         //tip: 覆盖自己设置的functions参数，使用plugin构造的functions
         chatCompletion.setFunctions(Collections.singletonList(functions));
@@ -345,43 +345,7 @@ public class OpenAiStreamClient {
         this.streamChatCompletionWithPlugin(chatCompletion, eventSourceListener, plugin);
     }
 
-    /**
-     * ## 官方已经禁止使用此api
-     * OpenAi账户余额查询
-     *
-     * @return 余额信息
-     */
-    @SneakyThrows
-    @Deprecated
-    public CreditGrantsResponse creditGrants() {
-        Request request = new Request.Builder()
-                .url(this.apiHost + "dashboard/billing/credit_grants")
-                .get()
-                .build();
-        Response response = this.okHttpClient.newCall(request).execute();
-        ResponseBody body = response.body();
-        String bodyStr = body.string();
-//        log.info("调用查询余额请求返回值：{}", bodyStr);
-        if (!response.isSuccessful()) {
-            if (response.code() == CommonError.OPENAI_AUTHENTICATION_ERROR.code()
-                    || response.code() == CommonError.OPENAI_LIMIT_ERROR.code()
-                    || response.code() == CommonError.OPENAI_SERVER_ERROR.code()) {
-                OpenAiResponse openAiResponse = JSONUtil.toBean(bodyStr, OpenAiResponse.class);
-                log.error(openAiResponse.getError().getMessage());
-                throw new BaseException(openAiResponse.getError().getMessage());
-            }
-            log.error("询余额请求异常：{}", bodyStr);
-            OpenAiResponse openAiResponse = JSONUtil.toBean(bodyStr, OpenAiResponse.class);
-            if (Objects.nonNull(openAiResponse.getError())) {
-                log.error(openAiResponse.getError().getMessage());
-                throw new BaseException(openAiResponse.getError().getMessage());
-            }
-            throw new BaseException(CommonError.RETRY_ERROR);
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        // 读取Json 返回值
-        return mapper.readValue(bodyStr, CreditGrantsResponse.class);
-    }
+
 
     /**
      * 账户信息查询：里面包含总金额等信息
@@ -404,6 +368,21 @@ public class OpenAiStreamClient {
     public BillingUsage billingUsage(@NotNull LocalDate starDate, @NotNull LocalDate endDate) {
         Single<BillingUsage> billingUsage = this.openAiApi.billingUsage(starDate, endDate);
         return billingUsage.blockingGet();
+    }
+
+    /**
+     * ## 官方已经禁止使用此api
+     * OpenAi账户余额查询
+     *
+     * @return 余额
+     * @see #subscription()
+     * @see #billingUsage(LocalDate, LocalDate)
+     * @deprecated 该方法已废弃，官方已禁止使用
+     */
+    @Deprecated
+    public CreditGrantsResponse creditGrants() {
+        Single<CreditGrantsResponse> creditGrants = this.openAiApi.creditGrants();
+        return creditGrants.blockingGet();
     }
 
     /**

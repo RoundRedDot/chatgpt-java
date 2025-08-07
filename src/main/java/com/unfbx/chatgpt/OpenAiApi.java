@@ -24,13 +24,10 @@ import com.unfbx.chatgpt.entity.edits.Edit;
 import com.unfbx.chatgpt.entity.edits.EditResponse;
 import com.unfbx.chatgpt.entity.embeddings.Embedding;
 import com.unfbx.chatgpt.entity.embeddings.EmbeddingResponse;
-import com.unfbx.chatgpt.entity.engines.Engine;
+
 import com.unfbx.chatgpt.entity.files.File;
 import com.unfbx.chatgpt.entity.files.UploadFileResponse;
-import com.unfbx.chatgpt.entity.fineTune.Event;
-import com.unfbx.chatgpt.entity.fineTune.FineTune;
 import com.unfbx.chatgpt.entity.fineTune.FineTuneDeleteResponse;
-import com.unfbx.chatgpt.entity.fineTune.FineTuneResponse;
 import com.unfbx.chatgpt.entity.fineTune.job.FineTuneJob;
 import com.unfbx.chatgpt.entity.fineTune.job.FineTuneJobEvent;
 import com.unfbx.chatgpt.entity.fineTune.job.FineTuneJobListResponse;
@@ -210,57 +207,7 @@ public interface OpenAiApi {
     Single<ModerationResponse> moderations(@Body Moderation moderation);
 
 
-    /**
-     * 创建微调作业
-     *
-     * @param fineTune 微调
-     * @return Single FineTuneResponse
-     * @see #fineTuneJob(FineTuneJob fineTuneJob)
-     */
-    @Deprecated
-    @POST("v1/fine-tunes")
-    Single<FineTuneResponse> fineTune(@Body FineTune fineTune);
 
-    /**
-     * 微调作业集合
-     *
-     * @return Single OpenAiResponse FineTuneResponse
-     * @see #fineTuneJobs(String, Integer)
-     */
-    @Deprecated
-    @GET("v1/fine-tunes")
-    Single<OpenAiResponse<FineTuneResponse>> fineTunes();
-
-
-    /**
-     * 检索微调作业
-     *
-     * @return Single FineTuneResponse
-     * @see #retrieveFineTuneJob(String fineTuneJobId)
-     */
-    @Deprecated
-    @GET("v1/fine-tunes/{fine_tune_id}")
-    Single<FineTuneResponse> retrieveFineTune(@Path("fine_tune_id") String fineTuneId);
-
-    /**
-     * 取消微调作业
-     *
-     * @return Single FineTuneResponse
-     * @see #cancelFineTuneJob(String fineTuneJobId)
-     */
-    @Deprecated
-    @POST("v1/fine-tunes/{fine_tune_id}/cancel")
-    Single<FineTuneResponse> cancelFineTune(@Path("fine_tune_id") String fineTuneId);
-
-    /**
-     * 微调作业事件列表
-     *
-     * @return Single OpenAiResponse Event
-     * @see #fineTuneJobEvents(String, String, Integer)
-     */
-    @Deprecated
-    @GET("v1/fine-tunes/{fine_tune_id}/events")
-    Single<OpenAiResponse<Event>> fineTuneEvents(@Path("fine_tune_id") String fineTuneId);
 
     /**
      * 删除微调作业模型
@@ -272,26 +219,7 @@ public interface OpenAiApi {
     Single<FineTuneDeleteResponse> deleteFineTuneModel(@Path("model") String model);
 
 
-    /**
-     * 引擎列表
-     * 官方已废弃此接口
-     *
-     * @return Single OpenAiResponse Engine
-     */
-    @Deprecated
-    @GET("v1/engines")
-    Single<OpenAiResponse<Engine>> engines();
 
-    /**
-     * 检索引擎
-     * 官方已废弃此接口
-     *
-     * @param engineId 引擎id
-     * @return Engine
-     */
-    @Deprecated
-    @GET("v1/engines/{engine_id}")
-    Single<Engine> engine(@Path("engine_id") String engineId);
 
 
     /**

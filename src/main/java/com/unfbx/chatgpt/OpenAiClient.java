@@ -32,6 +32,7 @@ import com.unfbx.chatgpt.entity.fineTune.Event;
 import com.unfbx.chatgpt.entity.fineTune.FineTune;
 import com.unfbx.chatgpt.entity.fineTune.FineTuneDeleteResponse;
 import com.unfbx.chatgpt.entity.fineTune.FineTuneResponse;
+
 import com.unfbx.chatgpt.entity.fineTune.job.FineTuneJob;
 import com.unfbx.chatgpt.entity.fineTune.job.FineTuneJobEvent;
 import com.unfbx.chatgpt.entity.fineTune.job.FineTuneJobListResponse;
@@ -574,11 +575,7 @@ public class OpenAiClient {
      * @return FineTuneResponse
      * @see #fineTuneJob(FineTuneJob fineTuneJob)
      */
-    @Deprecated
-    public FineTuneResponse fineTune(FineTune fineTune) {
-        Single<FineTuneResponse> fineTuneResponse = this.openAiApi.fineTune(fineTune);
-        return fineTuneResponse.blockingGet();
-    }
+
 
     /**
      * 创建微调模型
@@ -587,62 +584,15 @@ public class OpenAiClient {
      * @return FineTuneResponse
      * @see #fineTuneJob(String trainingFileId)
      */
-    @Deprecated
-    public FineTuneResponse fineTune(String trainingFileId) {
-        FineTune fineTune = FineTune.builder().trainingFile(trainingFileId).build();
-        return this.fineTune(fineTune);
-    }
 
-    /**
-     * 微调模型列表
-     *
-     * @return FineTuneResponse list
-     * @see #fineTuneJobs(String, Integer)
-     */
-    @Deprecated
-    public List<FineTuneResponse> fineTunes() {
-        Single<OpenAiResponse<FineTuneResponse>> fineTunes = this.openAiApi.fineTunes();
-        return fineTunes.blockingGet().getData();
-    }
 
-    /**
-     * 检索微调作业
-     *
-     * @param fineTuneId 微调作业id
-     * @return FineTuneResponse
-     * @see #retrieveFineTuneJob(String fineTuneJobId)
-     */
-    @Deprecated
-    public FineTuneResponse retrieveFineTune(String fineTuneId) {
-        Single<FineTuneResponse> fineTune = this.openAiApi.retrieveFineTune(fineTuneId);
-        return fineTune.blockingGet();
-    }
 
-    /**
-     * 取消微调作业
-     *
-     * @param fineTuneId 主键
-     * @return FineTuneResponse
-     * @see #cancelFineTuneJob(String fineTuneJobId)
-     */
-    @Deprecated
-    public FineTuneResponse cancelFineTune(String fineTuneId) {
-        Single<FineTuneResponse> fineTune = this.openAiApi.cancelFineTune(fineTuneId);
-        return fineTune.blockingGet();
-    }
 
-    /**
-     * 微调作业事件列表
-     *
-     * @param fineTuneId 微调作业id
-     * @return Event List
-     * @see #fineTuneJobEvents(String, String, Integer)
-     */
-    @Deprecated
-    public List<Event> fineTuneEvents(String fineTuneId) {
-        Single<OpenAiResponse<Event>> events = this.openAiApi.fineTuneEvents(fineTuneId);
-        return events.blockingGet().getData();
-    }
+
+
+
+
+
 
     /**
      * 删除微调作业模型
@@ -656,29 +606,219 @@ public class OpenAiClient {
         return delete.blockingGet();
     }
 
-
     /**
-     * 引擎列表
+     * 引擎列表 (已废弃)
      *
-     * @return Engine List
+     * @return Engine list
+     * @deprecated 该方法已废弃，建议使用 models() 方法
      */
     @Deprecated
     public List<Engine> engines() {
-        Single<OpenAiResponse<Engine>> engines = this.openAiApi.engines();
-        return engines.blockingGet().getData();
+        // 将 models 转换为 engines 以保持向后兼容
+        List<Model> models = this.models();
+        List<Engine> engines = new ArrayList<>();
+        for (Model model : models) {
+            Engine engine = new Engine();
+            engine.setId(model.getId());
+            engine.setObject("engine");
+            engine.setOwner(model.getOwnedBy());
+            engine.setReady(true);
+            engines.add(engine);
+        }
+        return engines;
     }
 
     /**
-     * 引擎详细信息
+     * 获取指定引擎信息 (已废弃)
      *
-     * @param engineId 引擎id
+     * @param engineId 引擎ID
      * @return Engine
+     * @deprecated 该方法已废弃，建议使用 model(String id) 方法
      */
     @Deprecated
     public Engine engine(String engineId) {
-        Single<Engine> engine = this.openAiApi.engine(engineId);
-        return engine.blockingGet();
+        Model model = this.model(engineId);
+        Engine engine = new Engine();
+        engine.setId(model.getId());
+        engine.setObject("engine");
+        engine.setOwner(model.getOwnedBy());
+        engine.setReady(true);
+        return engine;
     }
+
+    /**
+     * 创建微调作业 (已废弃)
+     *
+     * @param trainingFileId 训练文件ID
+     * @return FineTuneResponse
+     * @deprecated 该方法已废弃，建议使用 fineTuneJob(String trainingFileId) 方法
+     */
+    @Deprecated
+    public FineTuneResponse fineTune(String trainingFileId) {
+        FineTuneJobResponse jobResponse = this.fineTuneJob(trainingFileId);
+        // 转换为旧的 FineTuneResponse 格式
+        FineTuneResponse response = new FineTuneResponse();
+        response.setId(jobResponse.getId());
+        response.setObject(jobResponse.getObject());
+        response.setCreatedAt(jobResponse.getCreatedAt());
+        response.setFineTunedModel(jobResponse.getFineTunedModel());
+        response.setModel(jobResponse.getModel());
+        response.setStatus(jobResponse.getStatus());
+        // FineTuneJobResponse有单个文件字段，需要转换为兼容的列表格式
+        response.setTrainingFiles(new ArrayList<>());
+        response.setValidationFiles(new ArrayList<>());
+        response.setResultFiles(jobResponse.getResultFiles() != null ?
+            jobResponse.getResultFiles() : new ArrayList<>());
+        return response;
+    }
+
+    /**
+     * 创建微调作业 (已废弃)
+     *
+     * @param fineTune 微调参数
+     * @return FineTuneResponse
+     * @deprecated 该方法已废弃，建议使用 fineTuneJob(FineTuneJob fineTuneJob) 方法
+     */
+    @Deprecated
+    public FineTuneResponse fineTune(FineTune fineTune) {
+        // 将旧的 FineTune 对象转换为新的 FineTuneJob 对象
+        FineTuneJob fineTuneJob = FineTuneJob.builder()
+            .model(fineTune.getModel() != null ? fineTune.getModel() : FineTuneJob.Model.GPT_3_5_TURBO_1106.getName())
+            .trainingFile(fineTune.getTrainingFile())
+            .validationFile(fineTune.getValidationFile())
+            .suffix(fineTune.getSuffix())
+            .build();
+        
+        FineTuneJobResponse jobResponse = this.fineTuneJob(fineTuneJob);
+        
+        // 转换为旧的 FineTuneResponse 格式
+        FineTuneResponse response = new FineTuneResponse();
+        response.setId(jobResponse.getId());
+        response.setObject(jobResponse.getObject());
+        response.setCreatedAt(jobResponse.getCreatedAt());
+        response.setFineTunedModel(jobResponse.getFineTunedModel());
+        response.setModel(jobResponse.getModel());
+        response.setStatus(jobResponse.getStatus());
+        // FineTuneJobResponse有单个文件字段，需要转换为兼容的列表格式
+        response.setTrainingFiles(new ArrayList<>());
+        response.setValidationFiles(new ArrayList<>());
+        response.setResultFiles(jobResponse.getResultFiles() != null ?
+            jobResponse.getResultFiles() : new ArrayList<>());
+        return response;
+    }
+
+    /**
+     * 微调作业列表 (已废弃)
+     *
+     * @return FineTuneResponse list
+     * @deprecated 该方法已废弃，建议使用 fineTuneJobs(String after, Integer limit) 方法
+     */
+    @Deprecated
+    public List<FineTuneResponse> fineTunes() {
+        FineTuneJobListResponse<FineTuneJobResponse> jobListResponse = this.fineTuneJobs(null, null);
+        List<FineTuneResponse> responses = new ArrayList<>();
+        
+        for (FineTuneJobResponse jobResponse : jobListResponse.getData()) {
+            FineTuneResponse response = new FineTuneResponse();
+            response.setId(jobResponse.getId());
+            response.setObject(jobResponse.getObject());
+            response.setCreatedAt(jobResponse.getCreatedAt());
+            response.setFineTunedModel(jobResponse.getFineTunedModel());
+            response.setModel(jobResponse.getModel());
+            response.setStatus(jobResponse.getStatus());
+            // FineTuneJobResponse有单个文件字段，需要转换为兼容的列表格式
+            response.setTrainingFiles(new ArrayList<>());
+            response.setValidationFiles(new ArrayList<>());
+            response.setResultFiles(jobResponse.getResultFiles() != null ?
+                jobResponse.getResultFiles() : new ArrayList<>());
+            responses.add(response);
+        }
+        
+        return responses;
+    }
+
+    /**
+     * 检索微调作业 (已废弃)
+     *
+     * @param fineTuneId 微调作业ID
+     * @return FineTuneResponse
+     * @deprecated 该方法已废弃，建议使用 retrieveFineTuneJob(String fineTuneJobId) 方法
+     */
+    @Deprecated
+    public FineTuneResponse retrieveFineTune(String fineTuneId) {
+        FineTuneJobResponse jobResponse = this.retrieveFineTuneJob(fineTuneId);
+        
+        FineTuneResponse response = new FineTuneResponse();
+        response.setId(jobResponse.getId());
+        response.setObject(jobResponse.getObject());
+        response.setCreatedAt(jobResponse.getCreatedAt());
+        response.setFineTunedModel(jobResponse.getFineTunedModel());
+        response.setModel(jobResponse.getModel());
+        response.setStatus(jobResponse.getStatus());
+        // FineTuneJobResponse有单个文件字段，需要转换为兼容的列表格式
+        response.setTrainingFiles(new ArrayList<>());
+        response.setValidationFiles(new ArrayList<>());
+        response.setResultFiles(jobResponse.getResultFiles() != null ?
+            jobResponse.getResultFiles() : new ArrayList<>());
+        
+        return response;
+    }
+
+    /**
+     * 取消微调作业 (已废弃)
+     *
+     * @param fineTuneId 微调作业ID
+     * @return FineTuneResponse
+     * @deprecated 该方法已废弃，建议使用 cancelFineTuneJob(String fineTuneJobId) 方法
+     */
+    @Deprecated
+    public FineTuneResponse cancelFineTune(String fineTuneId) {
+        FineTuneJobResponse jobResponse = this.cancelFineTuneJob(fineTuneId);
+        
+        FineTuneResponse response = new FineTuneResponse();
+        response.setId(jobResponse.getId());
+        response.setObject(jobResponse.getObject());
+        response.setCreatedAt(jobResponse.getCreatedAt());
+        response.setFineTunedModel(jobResponse.getFineTunedModel());
+        response.setModel(jobResponse.getModel());
+        response.setStatus(jobResponse.getStatus());
+        // FineTuneJobResponse有单个文件字段，需要转换为兼容的列表格式
+        response.setTrainingFiles(new ArrayList<>());
+        response.setValidationFiles(new ArrayList<>());
+        response.setResultFiles(jobResponse.getResultFiles() != null ?
+            jobResponse.getResultFiles() : new ArrayList<>());
+        
+        return response;
+    }
+
+    /**
+     * 微调作业事件列表 (已废弃)
+     *
+     * @param fineTuneId 微调作业ID
+     * @return Event list
+     * @deprecated 该方法已废弃，建议使用 fineTuneJobEvents(String fineTuneJobId, String after, Integer limit) 方法
+     */
+    @Deprecated
+    public List<Event> fineTuneEvents(String fineTuneId) {
+        FineTuneJobListResponse<FineTuneJobEvent> eventsResponse = this.fineTuneJobEvents(fineTuneId, null, null);
+        List<Event> events = new ArrayList<>();
+        
+        for (FineTuneJobEvent jobEvent : eventsResponse.getData()) {
+            Event event = new Event();
+            event.setObject(jobEvent.getObject());
+            event.setCreatedAt(jobEvent.getCreatedAt());
+            event.setLevel(jobEvent.getLevel());
+            event.setMessage(jobEvent.getMessage());
+            events.add(event);
+        }
+        
+        return events;
+    }
+
+
+
+
+
 
     /**
      * 最新版的GPT-3.5 chat completion 更加贴近官方网站的问答模型

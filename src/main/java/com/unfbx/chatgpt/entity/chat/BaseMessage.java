@@ -68,22 +68,30 @@ public class BaseMessage implements Serializable {
      * @since 1.1.3
      */
     private String reasoning;
-
+    
+    /**
+     * 已废弃，请使用 toolCalls
+     * @deprecated 使用 toolCalls 替代
+     */
     @Deprecated
     @JsonProperty("function_call")
     private FunctionCall functionCall;
+
+
 
     /**
      * 构造函数
      *
      * @param role         角色
      * @param name         name
-     * @param functionCall functionCall
+     * @param toolCalls    工具调用列表
+     * @param toolCallId   工具调用ID
      */
-    public BaseMessage(String role, String name, FunctionCall functionCall) {
+    public BaseMessage(String role, String name, List<ToolCalls> toolCalls, String toolCallId) {
         this.role = role;
         this.name = name;
-        this.functionCall = functionCall;
+        this.toolCalls = toolCalls;
+        this.toolCallId = toolCallId;
     }
 
     public BaseMessage() {

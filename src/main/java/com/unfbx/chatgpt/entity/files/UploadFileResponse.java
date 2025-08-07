@@ -1,10 +1,9 @@
 package com.unfbx.chatgpt.entity.files;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
 
 /**
  * 描述：
@@ -15,5 +14,5 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UploadFileResponse extends File implements Serializable {
+public class UploadFileResponse extends File {
 }

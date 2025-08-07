@@ -39,21 +39,17 @@ public class BaseChatCompletion implements Serializable {
     private ResponseFormat responseFormat;
 
     /**
-     * 取值：null,auto或者自定义
-     * functions没有值的时候默认为：null
-     * functions存在值得时候默认为：auto
-     * 也可以自定义
-     * <p>已过时</p>
+     * 已过时，请使用 tools
      *
-     * @see #toolChoice
+     * @see #tools
+     * @deprecated 使用 tools 替代
      */
     @Deprecated
-    @JsonProperty("function_call")
-    private Object functionCall;
+    private List<Functions> functions;
 
     /**
      * 模型可能调用的工具列表。
-     * 当前版本仅支持：functions
+     * 当前版本支持：functions 等
      *
      * @since 1.1.2
      */
@@ -76,6 +72,14 @@ public class BaseChatCompletion implements Serializable {
      */
     @JsonProperty("parallel_tool_calls")
     private Boolean parallelToolCalls;
+    
+    /**
+     * 已废弃，请使用 toolChoice
+     * @deprecated 使用 toolChoice 替代
+     */
+    @Deprecated
+    @JsonProperty("function_call")
+    private Object functionCall;
 
     /**
      * 使用什么取样温度，0到2之间。较高的值(如0.8)将使输出更加随机，而较低的值(如0.2)将使输出更加集中和确定。
