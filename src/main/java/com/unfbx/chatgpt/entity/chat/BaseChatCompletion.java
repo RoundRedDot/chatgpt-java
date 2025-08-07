@@ -39,14 +39,6 @@ public class BaseChatCompletion implements Serializable {
     private ResponseFormat responseFormat;
 
     /**
-     * 已过时
-     *
-     * @see #tools
-     */
-    @Deprecated
-    private List<Functions> functions;
-
-    /**
      * 取值：null,auto或者自定义
      * functions没有值的时候默认为：null
      * functions存在值得时候默认为：auto
@@ -78,6 +70,14 @@ public class BaseChatCompletion implements Serializable {
     private Object toolChoice;
 
     /**
+     * 是否并行调用工具
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("parallel_tool_calls")
+    private Boolean parallelToolCalls;
+
+    /**
      * 使用什么取样温度，0到2之间。较高的值(如0.8)将使输出更加随机，而较低的值(如0.2)将使输出更加集中和确定。
      * <p>
      * We generally recommend altering this or but not both.top_p
@@ -94,13 +94,11 @@ public class BaseChatCompletion implements Serializable {
     @Builder.Default
     private Double topP = 1d;
 
-
     /**
      * 为每个提示生成的完成次数。
      */
     @Builder.Default
     private Integer n = 1;
-
 
     /**
      * 是否流式输出.
@@ -121,6 +119,13 @@ public class BaseChatCompletion implements Serializable {
     @Builder.Default
     private Integer maxTokens = 2048;
 
+    /**
+     * 最大补全令牌数
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("max_completion_tokens")
+    private Integer maxCompletionTokens;
 
     @JsonProperty("presence_penalty")
     @Builder.Default
@@ -134,7 +139,7 @@ public class BaseChatCompletion implements Serializable {
     private double frequencyPenalty = 0;
 
     @JsonProperty("logit_bias")
-    private Map logitBias;
+    private Map<String, Object> logitBias;
     /**
      * 用户唯一值，确保接口不被重复调用
      */
@@ -154,10 +159,166 @@ public class BaseChatCompletion implements Serializable {
     @JsonProperty("top_logprobs")
     private Integer topLogprobs;
 
+    /**
+     * 推理努力级别
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("reasoning_effort")
+    private String reasoningEffort;
+
+    /**
+     * Top-K 采样参数
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("top_k")
+    private Integer topK;
+
+    /**
+     * 输入内容（用于embedding等）
+     *
+     * @since 1.1.3
+     */
+    private Object input;
+
+    /**
+     * 指令内容
+     *
+     * @since 1.1.3
+     */
+    private String instruction;
+
+    /**
+     * 大小参数（如图片大小）
+     *
+     * @since 1.1.3
+     */
+    private String size;
+
+    /**
+     * 编码格式
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("encoding_format")
+    private Object encodingFormat;
+
+    /**
+     * 维度参数
+     *
+     * @since 1.1.3
+     */
+    private Integer dimensions;
+
+    /**
+     * 模态信息
+     *
+     * @since 1.1.3
+     */
+    private Object modalities;
+
+    /**
+     * 音频信息
+     *
+     * @since 1.1.3
+     */
+    private Object audio;
+
+    /**
+     * 是否启用思考模式
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("enable_thinking")
+    private Object enableThinking;
+
+    /**
+     * 思考内容
+     *
+     * @since 1.1.3
+     */
+    private Object thinking;
+
+    /**
+     * 额外请求体
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("extra_body")
+    private Object extraBody;
+
+    /**
+     * 搜索参数
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("search_parameters")
+    private Object searchParameters;
+
+    /**
+     * 网络搜索选项
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("web_search_options")
+    private WebSearchOptions webSearchOptions;
+
+    /**
+     * 使用情况统计
+     *
+     * @since 1.1.3
+     */
+    private Object usage;
+
+    /**
+     * 推理相关配置
+     *
+     * @since 1.1.3
+     */
+    private Reasoning reasoning;
+
+    /**
+     * 高分辨率图像设置
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("vl_high_resolution_images")
+    private Object vlHighResolutionImages;
+
+    /**
+     * 流式响应选项
+     *
+     * @since 1.1.3
+     */
+    @JsonProperty("stream_options")
+    private StreamOptions streamOptions;
+
+    /**
+     * 提示内容（用于非chat模型）
+     *
+     * @since 1.1.3
+     */
+    private Object prompt;
+
+    /**
+     * 前缀内容
+     *
+     * @since 1.1.3
+     */
+    private Object prefix;
+
+    /**
+     * 后缀内容
+     *
+     * @since 1.1.3
+     */
+    private Object suffix;
 
     /**
      * 最新模型参考官方文档：
-     * <a href="https://platform.openai.com/docs/models/model-endpoint-compatibility">官方稳定模型列表</a>
+     * <a href=
+     * "https://platform.openai.com/docs/models/model-endpoint-compatibility">官方稳定模型列表</a>
      */
     @Getter
     @AllArgsConstructor
@@ -219,6 +380,7 @@ public class BaseChatCompletion implements Serializable {
         O3_MINI("o3-mini"),
         O4_MINI("o4-mini"),
         ;
+
         private final String name;
     }
 
