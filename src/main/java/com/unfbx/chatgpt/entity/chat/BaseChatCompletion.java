@@ -10,7 +10,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 描述： chat模型基础类
@@ -142,8 +141,7 @@ public class BaseChatCompletion implements Serializable {
     @Builder.Default
     private double frequencyPenalty = 0;
 
-    @JsonProperty("logit_bias")
-    private Map<String, Object> logitBias;
+    
     /**
      * 用户唯一值，确保接口不被重复调用
      */

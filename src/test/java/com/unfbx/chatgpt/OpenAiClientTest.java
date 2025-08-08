@@ -269,7 +269,7 @@ public class OpenAiClientTest {
         Completion q = Completion.builder()
                 .prompt("三体人是什么？")
                 .n(2)
-                .bestOf(3)
+//                .bestOf(3)
                 .build();
         CompletionResponse completions = v2.completions(q);
         System.out.println(completions);

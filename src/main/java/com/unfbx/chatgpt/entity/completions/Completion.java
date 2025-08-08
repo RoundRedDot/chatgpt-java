@@ -14,14 +14,14 @@ import java.util.*;
  * 描述： 问题类
  *
  * @author grt1228
- * 2023-02-11
+ * @since 2023-02-11
  */
 @Data
 @Builder
 @Slf4j
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Completion implements Serializable {
 
     @NonNull
@@ -89,12 +89,6 @@ public class Completion implements Serializable {
     @Builder.Default
     private double frequencyPenalty = 0;
 
-    @JsonProperty("best_of")
-    @Builder.Default
-    private Integer bestOf = 1;
-
-    @JsonProperty("logit_bias")
-    private Map logitBias;
     /**
      * @since 1.1.2
      */
@@ -125,6 +119,7 @@ public class Completion implements Serializable {
         DAVINCI_002("text-davinci-002"),
         DAVINCI("davinci"),
         ;
+
         private final String name;
     }
 }
