@@ -1,23 +1,28 @@
 package com.unfbx.chatgpt.entity.edits;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 描述：
  *
  * @author grt1228
- * 2023-02-15
+ * @since 2023-02-15
  */
 @Data
 @Builder
 @Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
-@Deprecated
 public class Edit implements Serializable {
     /**
      * 编辑模型，目前支持两种
@@ -32,7 +37,6 @@ public class Edit implements Serializable {
      */
     @NonNull
     private String instruction;
-
 
     /**
      * 使用什么取样温度，0到2之间。较高的值(如0.8)将使输出更加随机，而较低的值(如0.2)将使输出更加集中和确定。
@@ -69,7 +73,6 @@ public class Edit implements Serializable {
         this.temperature = temperature;
     }
 
-
     public void setTopP(Double topP) {
         this.topP = topP;
     }
@@ -92,6 +95,7 @@ public class Edit implements Serializable {
         TEXT_DAVINCI_EDIT_001("text-davinci-edit-001"),
         CODE_DAVINCI_EDIT_001("code-davinci-edit-001"),
         ;
+
         private final String name;
     }
 }
