@@ -91,7 +91,6 @@ public interface OpenAiApi {
      * @param edit 编辑参数
      * @return Single EditResponse
      */
-    @Deprecated
     @POST("v1/edits")
     Single<EditResponse> edits(@Body Edit edit);
 
