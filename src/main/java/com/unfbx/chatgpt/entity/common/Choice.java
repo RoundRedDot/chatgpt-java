@@ -16,7 +16,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Choice implements Serializable {
     private String text;
-    private long index;
+    private int index;
     private Logprobs logprobs;
     @JsonProperty("finish_reason")
     private String finishReason;
