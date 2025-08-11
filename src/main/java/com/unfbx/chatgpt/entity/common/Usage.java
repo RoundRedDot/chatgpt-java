@@ -19,13 +19,13 @@ public class Usage implements Serializable {
     
     // 基础token统计字段
     @JsonProperty("prompt_tokens")
-    private Long promptTokens;
+    private long promptTokens;
 
     @JsonProperty("completion_tokens")
-    private Long completionTokens;
+    private long completionTokens;
 
     @JsonProperty("total_tokens")
-    private Long totalTokens;
+    private long totalTokens;
     
     // 新版本API扩展字段
     
