@@ -41,7 +41,14 @@ public class TikTokensUtil {
      * @return Encoding array
      */
     public static List<Integer> encode(Encoding enc, String text) {
-        return isBlank(text) ? new ArrayList<>() : enc.encode(text).boxed();
+        if (isBlank(text)) {
+            return new ArrayList<>();
+        }
+        // Fallback to a default encoding if the provided encoding is null
+        if (enc == null) {
+            enc = registry.getEncoding(EncodingType.CL100K_BASE);
+        }
+        return enc.encode(text).boxed();
     }
 
     /**
@@ -125,7 +132,12 @@ public class TikTokensUtil {
      * @return Encoding
      */
     public static Encoding getEncoding(String modelName) {
-        return modelMap.get(modelName);
+        Encoding encoding = modelMap.get(modelName);
+        if (encoding != null) {
+            return encoding;
+        }
+        // Unknown model name: use a sensible default to avoid NPE
+        return registry.getEncoding(EncodingType.CL100K_BASE);
     }
 
     /**
