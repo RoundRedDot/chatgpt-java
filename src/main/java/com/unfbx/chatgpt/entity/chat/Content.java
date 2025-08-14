@@ -1,9 +1,9 @@
 package com.unfbx.chatgpt.entity.chat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 描述：
@@ -14,10 +14,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 @Builder
-@Slf4j
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Content {
     /**
      * 输入类型：text、image_url

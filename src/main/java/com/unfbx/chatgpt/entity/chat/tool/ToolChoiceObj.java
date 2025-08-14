@@ -1,5 +1,7 @@
 package com.unfbx.chatgpt.entity.chat.tool;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 /**
@@ -9,8 +11,10 @@ import lombok.*;
  */
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ToolChoiceObj {
     /**
      * 需要调用的方法名称

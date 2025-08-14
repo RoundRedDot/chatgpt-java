@@ -1,9 +1,9 @@
 package com.unfbx.chatgpt.entity.images;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 
@@ -14,11 +14,11 @@ import java.io.Serializable;
  * 2023-02-15
  */
 @Data
-@Slf4j
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Image implements Serializable {
 
     /**

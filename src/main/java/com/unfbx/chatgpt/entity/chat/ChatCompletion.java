@@ -2,6 +2,7 @@ package com.unfbx.chatgpt.entity.chat;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.unfbx.chatgpt.utils.TikTokensUtil;
 import lombok.*;
@@ -18,11 +19,11 @@ import java.util.List;
  */
 @Data
 @SuperBuilder
-@Slf4j
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ChatCompletion extends BaseChatCompletion {
 
     /**

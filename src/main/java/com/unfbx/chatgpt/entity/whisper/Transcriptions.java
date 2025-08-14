@@ -1,5 +1,6 @@
 package com.unfbx.chatgpt.entity.whisper;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @FieldNameConstants
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Transcriptions extends Whisper {
     /**
      * 模型目前只支持这一种：WHISPER_1

@@ -25,11 +25,6 @@ public class SSEUtil {
 
     /**
      * 执行get sse请求
-     *
-     * @param okHttpClient
-     * @param url
-     * @param eventSourceListener
-     * @param <T>
      */
     public static <T> void get(OkHttpClient okHttpClient, String url, EventSourceListener eventSourceListener) {
         get(okHttpClient, url, Headers.of(MapUtil.empty()), eventSourceListener);
@@ -37,11 +32,6 @@ public class SSEUtil {
 
     /**
      * 执行get sse请求
-     *
-     * @param okHttpClient
-     * @param url
-     * @param headers
-     * @param eventSourceListener
      */
     public static void get(OkHttpClient okHttpClient, String url, Headers headers, EventSourceListener eventSourceListener) {
         Request request = new Request.Builder()
@@ -54,11 +44,6 @@ public class SSEUtil {
 
     /**
      * 执行get sse请求
-     *
-     * @param okHttpClient
-     * @param request
-     * @param eventSourceListener
-     * @param <T>
      */
     public static <T> void get(OkHttpClient okHttpClient, Request request, EventSourceListener eventSourceListener) {
         execute(okHttpClient, request, eventSourceListener);
@@ -67,13 +52,6 @@ public class SSEUtil {
 
     /**
      * 执行post sse请求
-     *
-     * @param okHttpClient
-     * @param url
-     * @param headers
-     * @param body
-     * @param eventSourceListener
-     * @param <T>
      */
     public static <T> void post(OkHttpClient okHttpClient, String url, Headers headers, T body, EventSourceListener eventSourceListener) {
         try {
@@ -93,12 +71,6 @@ public class SSEUtil {
 
     /**
      * 执行post sse请求
-     *
-     * @param okHttpClient
-     * @param url
-     * @param body
-     * @param eventSourceListener
-     * @param <T>
      */
     public static <T> void post(OkHttpClient okHttpClient, String url, T body, EventSourceListener eventSourceListener) {
         post(okHttpClient, url, Headers.of(MapUtil.empty()), body, eventSourceListener);
@@ -106,11 +78,6 @@ public class SSEUtil {
 
     /**
      * 执行sse请求
-     *
-     * @param okHttpClient
-     * @param request
-     * @param eventSourceListener
-     * @param <T>
      */
     public static <T> void execute(OkHttpClient okHttpClient, Request request, EventSourceListener eventSourceListener) {
         if (Objects.isNull(eventSourceListener)) {

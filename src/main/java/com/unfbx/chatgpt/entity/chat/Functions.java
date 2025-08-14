@@ -1,5 +1,7 @@
 package com.unfbx.chatgpt.entity.chat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,13 +28,16 @@ import java.io.Serializable;
  *          },
  *     }
  * </pre>
+ *
  * @author grt1228
- * @since  2023-06-14
+ * @since 2023-06-14
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Functions implements Serializable {
     /**
      * 方法名称

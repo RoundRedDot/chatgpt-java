@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.unfbx.chatgpt.entity.chat.tool.ToolCalls;
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,7 +20,6 @@ import java.util.List;
  * 2023-11-17
  */
 @Data
-@Slf4j
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

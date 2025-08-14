@@ -1,9 +1,9 @@
 package com.unfbx.chatgpt.entity.assistant.thread;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
@@ -12,11 +12,11 @@ import java.util.Map;
  * @author grt1228
  */
 @Data
-@Slf4j
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ThreadMessage {
 
     private String role;

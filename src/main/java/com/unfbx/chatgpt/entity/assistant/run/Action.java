@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 
@@ -16,7 +15,6 @@ import java.io.Serializable;
  * 2023-11-17
  */
 @Data
-@Slf4j
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

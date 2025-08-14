@@ -1,6 +1,7 @@
 package com.unfbx.chatgpt.entity.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.List;
  *  2023-02-15
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OpenAiResponse<T> implements Serializable {
     private String object;
@@ -20,6 +22,7 @@ public class OpenAiResponse<T> implements Serializable {
 
 
     @Data
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Error {
         private String message;

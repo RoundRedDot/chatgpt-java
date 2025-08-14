@@ -1,6 +1,7 @@
 package com.unfbx.chatgpt.entity.embeddings;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.unfbx.chatgpt.entity.common.Usage;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ import java.util.List;
  *  2023-02-15
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EmbeddingResponse implements Serializable {
 

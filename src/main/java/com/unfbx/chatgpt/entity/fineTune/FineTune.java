@@ -1,5 +1,6 @@
 package com.unfbx.chatgpt.entity.fineTune;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.unfbx.chatgpt.exception.BaseException;
@@ -17,9 +18,10 @@ import java.util.Objects;
 @Data
 @Slf4j
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FineTune implements Serializable {
 
     /**
@@ -62,46 +64,6 @@ public class FineTune implements Serializable {
     private List classificationBetas;
 
     private String suffix;
-
-    public void setTrainingFile(String trainingFile) {
-        this.trainingFile = trainingFile;
-    }
-
-    public void setValidationFile(String validationFile) {
-        this.validationFile = validationFile;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public void setN_epochs(Integer n_epochs) {
-        this.n_epochs = n_epochs;
-    }
-
-    public void setBatchSize(Integer batchSize) {
-        this.batchSize = batchSize;
-    }
-
-    public void setLearningRateMultiplier(Double learningRateMultiplier) {
-        this.learningRateMultiplier = learningRateMultiplier;
-    }
-
-    public void setPromptLossWeight(Double promptLossWeight) {
-        this.promptLossWeight = promptLossWeight;
-    }
-
-    public void setComputeClassificationMetrics(boolean computeClassificationMetrics) {
-        this.computeClassificationMetrics = computeClassificationMetrics;
-    }
-
-    public void setClassificationNClasses(Integer classificationNClasses) {
-        this.classificationNClasses = classificationNClasses;
-    }
-
-    public void setClassificationBetas(List classificationBetas) {
-        this.classificationBetas = classificationBetas;
-    }
 
     public void setSuffix(String suffix) {
         if(Objects.nonNull(suffix) && !"".equals(suffix) && suffix.length() > 40){

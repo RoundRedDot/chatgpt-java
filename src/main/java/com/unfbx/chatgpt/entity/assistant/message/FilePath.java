@@ -3,8 +3,10 @@ package com.unfbx.chatgpt.entity.assistant.message;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 描述：
@@ -14,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
  * 2023-11-20
  */
 @Data
-@Slf4j
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

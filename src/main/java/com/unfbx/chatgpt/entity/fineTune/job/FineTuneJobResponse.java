@@ -1,6 +1,7 @@
 package com.unfbx.chatgpt.entity.fineTune.job;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * 2023-11-12
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FineTuneJobResponse implements Serializable {
     @JsonProperty("id")

@@ -1,6 +1,7 @@
 package com.unfbx.chatgpt.entity.images;
 
 import cn.hutool.core.util.StrUtil;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.unfbx.chatgpt.exception.BaseException;
@@ -17,12 +18,13 @@ import java.util.Objects;
  * @author grt1228
  *  2023-02-15
  */
-@Getter
 @Slf4j
+@Getter
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ImageEdit implements Serializable {
     /**
      * 必选项：描述文字，最多1000字符

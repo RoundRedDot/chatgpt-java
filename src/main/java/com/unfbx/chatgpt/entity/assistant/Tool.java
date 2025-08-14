@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.unfbx.chatgpt.entity.chat.Functions;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 
@@ -12,7 +11,6 @@ import java.io.Serializable;
  * @author grt1228
  */
 @Data
-@Slf4j
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

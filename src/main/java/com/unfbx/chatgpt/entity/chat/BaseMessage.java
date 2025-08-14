@@ -19,9 +19,9 @@ import java.util.List;
  * 2023-03-02
  */
 @Data
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@AllArgsConstructor
 public class BaseMessage implements Serializable {
 
     /**
@@ -29,7 +29,6 @@ public class BaseMessage implements Serializable {
      * <a href="https://platform.openai.com/docs/guides/chat/introduction">Role</a>
      */
     private String role;
-
 
     private String name;
 

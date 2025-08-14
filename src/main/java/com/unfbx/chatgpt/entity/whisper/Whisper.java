@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Data
 public class Whisper implements Serializable {
 
-
     @Getter
     @AllArgsConstructor
     public enum Model {

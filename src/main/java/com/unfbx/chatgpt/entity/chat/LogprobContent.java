@@ -1,6 +1,7 @@
 package com.unfbx.chatgpt.entity.chat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,8 +14,10 @@ import java.util.List;
  * @since 2023-12-25
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LogprobContent implements Serializable {
 
     private List<Logprob> content;
+
 }

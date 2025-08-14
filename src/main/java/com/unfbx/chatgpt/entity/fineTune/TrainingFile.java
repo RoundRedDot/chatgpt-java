@@ -1,6 +1,7 @@
 package com.unfbx.chatgpt.entity.fineTune;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -10,17 +11,26 @@ import java.io.Serializable;
  * @author grt1228
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TrainingFile implements Serializable {
 
     private String id;
+
     private String object;
+
     private long bytes;
+
     @JsonProperty("created_at")
     private long createdAt;
+
     private String filename;
+
     private String purpose;
+
     private String status;
+
     @JsonProperty("status_details")
     private String statusDetails;
+
 }
